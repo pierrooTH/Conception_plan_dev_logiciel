@@ -35,7 +35,9 @@ class ChartController extends AbstractController
         $dateDebutPlusTot += $dureeDeLaTache;
         $dateDebutPlusTard -= $dureeDeLaTacheParLafin;
 
+        /*
         "Lien pour les calculs : http://tpmattitude.fr/pert.html";
+        */
 
     }
 }
