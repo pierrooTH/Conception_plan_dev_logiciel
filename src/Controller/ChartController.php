@@ -17,4 +17,27 @@ class ChartController extends AbstractController
             'controller_name' => 'ChartController',
         ]);
     }
+
+    public function calcul(){
+
+        $nomDeLaTache = "";
+        $dureeDeLaTache = 0;
+        $dureeDeLaTacheParLafin = 0;
+        $dateDebutPlusTot = 0;
+        $dateDebutPlusTard = 0;
+        $margeLibre = 0;
+        $margeTotale = 0;
+        $dateDebutPlusTotTacheSuivante = 0;
+
+        $margeLibre = $dateDebutPlusTotTacheSuivante - $dateDebutPlusTot - $dureeDeLaTache;
+        $margeTotale = $dateDebutPlusTard - $dateDebutPlusTot;
+
+        $dateDebutPlusTot += $dureeDeLaTache;
+        $dateDebutPlusTard -= $dureeDeLaTacheParLafin;
+
+        /*
+        "Lien pour les calculs : http://tpmattitude.fr/pert.html";
+        */
+
+    }
 }
