@@ -109,33 +109,31 @@
 					</div>
 				</div>
 				<div class="col-6">
-
 					<div class="card z-index-0">
 						<div class="card-body">
-							<form role="form text-left">
-								<div class="row mb-4">
-									<div class="col-6 mb-4">
-										<input type="text" class="form-control" placeholder="Tâches" aria-label="Name">
-									</div>
-									<div class="col-6">
-										<input type="number" class="form-control" placeholder="Durée" aria-label="Dure">
-									</div>
-                                    <div class="col-6">
-										<input type="text" class="form-control" placeholder="Tâche antérieur" aria-label="Name">
-									</div>
+							{{ form_start(formTache) }}
+							<div class="row mb-4">
+								<div class="col-6 mb-4">
+									{{ form_widget(formTache.letter) }}
 								</div>
-								<div class="row">
-									<div class="col-12">
-										<textarea id="form7" placeholder="Description de la tâche..." class="md-textarea form-control" rows="3"></textarea>
-									</div>
+								<div class="col-6">
+									{{ form_widget(formTache.duration) }}
 								</div>
-								<div class="text-center">
-									<button type="button" class="btn bg-gradient-dark w-100 my-4 mb-2">Ajouter la taches</button>
+								<div class="col-6">
+									{{ form_widget(formTache.level) }}
 								</div>
-							</form>
+							</div>
+							<div class="row">
+								<div class="col-12">
+									{{ form_widget(formTache.description) }}
+								</div>
+							</div>
+							<div class="text-center">
+								{{ form_widget(formTache.submit) }}
+							</div>
+							{{ form_end(formTache) }}
 						</div>
 					</div>
-
 				</div>
 			</div>
 		</div>
