@@ -51,7 +51,8 @@
 											<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tâche</th>
 											<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Descriptif</th>
 											<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Durée</th>
-											<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tâche antérieures</th>
+											<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tâche(s) antérieure(s)</th>
+											<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Niveau de la tâche</th>
 											<th class="text-secondary opacity-7"></th>
 										</tr>
 									</thead>
@@ -72,6 +73,9 @@
 											</td>
 											<td class="align-middle text-center">
 												<span class="text-secondary text-xs font-weight-bold">Aucune</span>
+											</td>
+											<td class="align-middle text-center">
+												<span class="text-secondary text-xs font-weight-bold">1</span>
 											</td>
 											<td class="align-middle">
 												<a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
@@ -96,6 +100,9 @@
 											<td class="align-middle text-center">
 												<span class="text-secondary text-xs font-weight-bold">A</span>
 											</td>
+											<td class="align-middle text-center">
+												<span class="text-secondary text-xs font-weight-bold">2</span>
+											</td>
 											<td class="align-middle">
 												<a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
 													supprimer
@@ -114,18 +121,18 @@
 							{{ form_start(formTache) }}
 							<div class="row mb-4">
 								<div class="col-6 mb-4">
-									{{ form_widget(formTache.letter) }}
+									{{ form_widget(formTache.letter, { 'value': '' }) }}
 								</div>
 								<div class="col-6">
-									{{ form_widget(formTache.duration) }}
+									{{ form_widget(formTache.duration, { 'value': '' }) }}
 								</div>
 								<div class="col-6">
-									{{ form_widget(formTache.level) }}
+									{{ form_widget(formTache.level, { 'value': '' }) }}
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-12">
-									{{ form_widget(formTache.description) }}
+									{{ form_widget(formTache.description, { 'value': '' }) }}
 								</div>
 							</div>
 							<div class="text-center">
