@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\PreviousTask;
 use App\Entity\Tache;
+use App\Repository\TacheRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -62,16 +63,21 @@ class DashboardController extends AbstractController
          $form->handleRequest($request);
 
          if($form->isSubmitted() && $form->isValid()){
+
             $manager->persist($tache);
             $manager->flush();
 
          }
+
+         $repo = $this->getDoctrine()->getRepository(Tache::class);
+         $taches = $repo->findAll();
 
 
 
         return $this->render('view/index.html.twig', [
             'controller_name' => 'DashboardController',
             'formTache' => $form->createView(),
+            'taches' => $taches,
         ]);
     }
 }
