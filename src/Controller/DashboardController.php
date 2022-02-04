@@ -61,12 +61,21 @@ class DashboardController extends AbstractController
                      ->getForm();
                 
          $form->handleRequest($request);
+        
+         $repvisu =  "";
 
-         if($form->isSubmitted() && $form->isValid()){
+         if($form->isSubmitted()){
 
-            $manager->persist($tache);
-            $manager->flush();
+            if($form->isValid()){
 
+                $manager->persist($tache);
+                $manager->flush();
+                $repvisu =  "Envoyé";
+
+            }else{
+                $repvisu = "Cette tâche existe déjà où les champs sont incorrect!!!";
+            }
+            
          }
 
          $repo = $this->getDoctrine()->getRepository(Tache::class);
@@ -78,6 +87,7 @@ class DashboardController extends AbstractController
             'controller_name' => 'DashboardController',
             'formTache' => $form->createView(),
             'taches' => $taches,
+            'repvisu' => $repvisu, 
         ]);
     }
 }

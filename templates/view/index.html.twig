@@ -70,7 +70,8 @@
 													<p class="text-xs font-weight-bold mb-0">{{ Tache.description }}</p>
 												</td>
 												<td class="align-middle text-center text-sm">
-													<span class="badge badge-sm bg-gradient-success">{{ Tache.duration }} jours</span>
+													<span class="badge badge-sm bg-gradient-success">{{ Tache.duration }}
+														jours</span>
 												</td>
 												<td class="align-middle text-center">
 													<span class="text-secondary text-xs font-weight-bold">Aucune</span>
@@ -111,8 +112,20 @@
 									{{ form_widget(formTache.description, { 'value': '' }) }}
 								</div>
 							</div>
+
 							<div class="text-center">
 								{{ form_widget(formTache.submit) }}
+							</div>
+							<div class='row'>
+								<div class='col-12'>
+									{% if repvisu == '' %}
+
+										{% elseif repvisu == 'Envoyé'%}
+											<p class='col-12 badge badge-sm bg-gradient-success'>{{ repvisu }}</p>
+										{% else %}
+											<p class='col-12 badge badge-sm bg-gradient-danger'>{{ repvisu }}</p>
+									{% endif %}
+								</div>
 							</div>
 							{{ form_end(formTache) }}
 						</div>
