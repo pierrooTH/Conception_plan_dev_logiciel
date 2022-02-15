@@ -73,7 +73,7 @@ class DashboardController extends AbstractController
                 $repvisu =  "Envoyé";
 
             }else{
-                $repvisu = "Cette tâche existe déjà où les champs sont incorrect!!!";
+                $repvisu = "Cette tâche existe déjà ou les champs sont incorrect !";
             }
             
          }
