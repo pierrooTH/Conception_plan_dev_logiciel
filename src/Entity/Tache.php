@@ -27,6 +27,11 @@ class Tache
      */
     private $letter;
 
+     /**
+     * @ORM\Column(name="previousLetter",type="string", length=1)
+     */
+    private $previousLetter;
+
     /**
      * @ORM\Column(type="string", length=100)
      */
@@ -65,6 +70,18 @@ class Tache
     public function setLetter(string $letter): self
     {
         $this->letter = $letter;
+
+        return $this;
+    }
+
+    public function getPreviousLetter(): ?string
+    {
+        return $this->previousLetter;
+    }
+
+    public function setPreviousLetter(string $previousLetter): self
+    {
+        $this->previousLetter = $previousLetter;
 
         return $this;
     }

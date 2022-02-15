@@ -8,6 +8,8 @@ use App\Repository\TacheRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -15,6 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class DashboardController extends AbstractController
 {
@@ -26,6 +29,7 @@ class DashboardController extends AbstractController
     {
 
         $tache = new Tache();
+        $previousTask = new PreviousTask();
             
         $form = $this->createFormBuilder($tache)
                      ->add('letter', TextType::class, [
@@ -58,9 +62,28 @@ class DashboardController extends AbstractController
                             'class' => 'btn bg-gradient-dark w-100 my-4 mb-2'
                         ]
                     ])
+                    ->add('previousLetter', TextType::class, [
+                        'attr' =>[
+                            'placeholder' => "Tâche précédente",
+                            'class' => 'form-control'
+                        ]
+                     ])
                      ->getForm();
                 
          $form->handleRequest($request);
+
+        //  $formPreviousTask = $this->createFormBuilder($previousTask)
+        //              ->add('letter', EntityType::class, [
+        //                 'class' => Tache::class,
+        //                 'choice_label' => function(Tache $tache) {
+        //                 return "{$tache->getLetter()}";
+        //                 },
+        //                 'multiple' => false,
+        //              ])
+                     
+        //              ->getForm();
+                
+        //  $formPreviousTask->handleRequest($request);
         
          $repvisu =  "";
 
