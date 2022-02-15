@@ -90,4 +90,19 @@ class DashboardController extends AbstractController
             'repvisu' => $repvisu, 
         ]);
     }
+
+    /**
+     * @Route("/{id}", name="tache_delete", methods={"POST"})
+     */
+    public function delete(Request $request, EntityManagerInterface $manager, Tache $tache): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$tache->getId(), $request->request->get('_token'))) {
+            $manager = $this->getDoctrine()->getManager();
+            $manager->remove($tache);
+            $manager->flush();
+        }
+
+        return $this->redirectToRoute('dashboard');
+
+    }
 }
