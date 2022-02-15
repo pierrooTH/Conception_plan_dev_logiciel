@@ -28,7 +28,7 @@ class Tache
     private $letter;
 
      /**
-     * @ORM\Column(name="previousLetter",type="string", length=1)
+     * @ORM\Column(name="previousLetter",type="string", length=5)
      */
     private $previousLetter;
 
