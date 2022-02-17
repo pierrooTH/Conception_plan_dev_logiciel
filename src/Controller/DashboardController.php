@@ -27,9 +27,7 @@ class DashboardController extends AbstractController
      */
     public function index(Request $request, EntityManagerInterface $manager): Response
     {
-
         $tache = new Tache();
-        $previousTask = new PreviousTask();
             
         $form = $this->createFormBuilder($tache)
                      ->add('letter', TextType::class, [
@@ -72,19 +70,6 @@ class DashboardController extends AbstractController
                 
          $form->handleRequest($request);
 
-        //  $formPreviousTask = $this->createFormBuilder($previousTask)
-        //              ->add('letter', EntityType::class, [
-        //                 'class' => Tache::class,
-        //                 'choice_label' => function(Tache $tache) {
-        //                 return "{$tache->getLetter()}";
-        //                 },
-        //                 'multiple' => false,
-        //              ])
-                     
-        //              ->getForm();
-                
-        //  $formPreviousTask->handleRequest($request);
-        
          $repvisu =  "";
 
          if($form->isSubmitted()){
@@ -98,13 +83,10 @@ class DashboardController extends AbstractController
             }else{
                 $repvisu = "Cette tâche existe déjà ou les champs sont incorrect !";
             }
-            
          }
 
          $repo = $this->getDoctrine()->getRepository(Tache::class);
          $taches = $repo->findAll();
-
-
 
         return $this->render('view/index.html.twig', [
             'controller_name' => 'DashboardController',
