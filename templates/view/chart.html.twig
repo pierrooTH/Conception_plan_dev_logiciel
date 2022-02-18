@@ -33,6 +33,8 @@
 				</div>
 			</div>
 		</nav>
+
+
 		<!-- End Navbar -->
 		<div class="container-fluid py-4">
 
@@ -40,11 +42,28 @@
 				<div id="navSide" class="flex flex-col w-full md:w-48 text-gray-700 bg-white flex-shrink-0"></div>
 				<!-- * * * * * * * * * * * * * -->
 				<!-- Start of GoJS sample code -->
-
 				<script src="js/go.js"></script>
+
 				<div class="p-4 w-full">
+					{% set cpt = 0 %}
+					{% for Tache in taches %}
+						{% set cpt = cpt + 1 %}
+
+					<input hidden id="{{ cpt }}" value="{{ Tache.letter }}" >
+
 					<script id="code">
 						function init() {
+
+							let letter = [];
+
+								for (let i = 1; i < 10000 ; i++) {
+									let input = document.getElementById(i);
+									if (input === null) {
+										break;
+									} else {
+										letter.push(input.value);
+									}
+								}
 
 							// Since 2.2 you can also author concise templates with method chaining instead of GraphObject.make
 							// For details, see https://gojs.net/latest/intro/buildingObjects.html
@@ -146,9 +165,11 @@
 									);
 
 							// here's the data defining the graph
+
+
 							var nodeDataArray = [
 								{ key: 1, text: "Start", length: 0, earlyStart: 0, lateFinish: 0, critical: true },
-								{ key: 2, text: "a", length: 4, earlyStart: 0, lateFinish: 4, critical: true },
+								{ key: 2, text: letter[0], length: 4, earlyStart: 0, lateFinish: 4, critical: true },
 								{ key: 3, text: "b", length: 5.33, earlyStart: 0, lateFinish: 9.17, critical: false },
 								{ key: 4, text: "c", length: 5.17, earlyStart: 4, lateFinish: 9.17, critical: true },
 								{ key: 5, text: "d", length: 6.33, earlyStart: 4, lateFinish: 15.01, critical: false },
@@ -205,6 +226,7 @@
 						}
 						window.addEventListener('DOMContentLoaded', init);
 					</script>
+					{% endfor %}
 
 					<div id="sample">
 						<div id="myDiagramDiv" style="border: solid 1px black; width:100%; height:400px">
@@ -222,5 +244,4 @@
 
 
 		</div>
-	</div>
-</div>{% endblock %}
+	</main>{% endblock %}
