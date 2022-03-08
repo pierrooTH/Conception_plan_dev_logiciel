@@ -49,21 +49,35 @@
 					{% for Tache in taches %}
 						{% set cpt = cpt + 1 %}
 
-					<input hidden id="{{ cpt }}" value="{{ Tache.letter }}" >
+					<input hidden id="idLettre{{ cpt }}" value="{{ Tache.letter }}" >
+					<input hidden id="idDuree{{ cpt }}" value="{{ Tache.duration }}" >
 
 					<script id="code">
 						function init() {
 
 							let letter = [];
+							let duree = [];
 
-								for (let i = 1; i < 10000 ; i++) {
-									let input = document.getElementById(i);
-									if (input === null) {
-										break;
-									} else {
-										letter.push(input.value);
-									}
+							for (let i = 1; i < 10000 ; i++) {
+								let inputLettre = document.getElementById('idLettre'+i);
+								let inputDuree = document.getElementById('idDuree'+i);
+								if (inputLettre === null) {
+									break;
+								} else {
+									letter.push(inputLettre.value);
+									duree.push(inputDuree.value);
 								}
+							}
+
+							let tab = []
+							var cpt = 0
+							for(let i = 0; i<letter.length;i++){
+								cpt++
+								var arr = {"key": cpt, "text" : letter[i], "length" : duree[i], "earlyStart" : 0, "lateFinish" : 0, "critical" : true };
+								tab.push(arr);
+							}
+
+							console.log(tab)
 
 							// Since 2.2 you can also author concise templates with method chaining instead of GraphObject.make
 							// For details, see https://gojs.net/latest/intro/buildingObjects.html
@@ -169,7 +183,7 @@
 
 							var nodeDataArray = [
 								{ key: 1, text: "Start", length: 0, earlyStart: 0, lateFinish: 0, critical: true },
-								{ key: 2, text: letter[0], length: 4, earlyStart: 0, lateFinish: 4, critical: true },
+								{ key: 2, text: "a", length: 4, earlyStart: 0, lateFinish: 4, critical: true },
 								{ key: 3, text: "b", length: 5.33, earlyStart: 0, lateFinish: 9.17, critical: false },
 								{ key: 4, text: "c", length: 5.17, earlyStart: 4, lateFinish: 9.17, critical: true },
 								{ key: 5, text: "d", length: 6.33, earlyStart: 4, lateFinish: 15.01, critical: false },
@@ -190,7 +204,7 @@
 								{ from: 7, to: 9 },
 								{ from: 8, to: 9 }
 							];
-							myDiagram.model = new go.GraphLinksModel(nodeDataArray, linkDataArray);
+							myDiagram.model = new go.GraphLinksModel(tab, linkDataArray);
 
 							// create an unbound Part that acts as a "legend" for the diagram
 							myDiagram.add(
