@@ -51,21 +51,24 @@
 
 					<input hidden id="idLettre{{ cpt }}" value="{{ Tache.letter }}" >
 					<input hidden id="idDuree{{ cpt }}" value="{{ Tache.duration }}" >
-
+					<input hidden id="idPreviousLetter{{ cpt }}" value="{{ Tache.previousLetter }}" >
 					<script id="code">
 						function init() {
 
 							let letter = [];
 							let duree = [];
+							let previousLetter = [];
 
 							for (let i = 1; i < 10000 ; i++) {
 								let inputLettre = document.getElementById('idLettre'+i);
 								let inputDuree = document.getElementById('idDuree'+i);
+								let inputPreviousLetter = document.getElementById('idPreviousLetter'+i);
 								if (inputLettre === null) {
 									break;
 								} else {
 									letter.push(inputLettre.value);
 									duree.push(inputDuree.value);
+									previousLetter.push(inputPreviousLetter.value);
 								}
 							}
 
@@ -77,7 +80,7 @@
 								tab.push(arr);
 							}
 
-							console.log(tab)
+							console.log(previousLetter);
 
 							// Since 2.2 you can also author concise templates with method chaining instead of GraphObject.make
 							// For details, see https://gojs.net/latest/intro/buildingObjects.html
