@@ -10,7 +10,6 @@ use App\Entity\Tache;
 use App\Repository\TacheRepository;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Request;
-use App\Entity\PreviousTask;
 
 class ChartController extends AbstractController
 {

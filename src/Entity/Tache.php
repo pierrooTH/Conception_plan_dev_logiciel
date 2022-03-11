@@ -47,10 +47,6 @@ class Tache
      */
     private $level;
 
-    /**
-     * @ORM\OneToMany(targetEntity=PreviousTask::class, mappedBy="id_task", orphanRemoval=true)
-     */
-    private $Id;
 
     public function __construct()
     {
@@ -121,28 +117,5 @@ class Tache
 
         return $this;
     }
-
-    public function addId(PreviousTask $id): self
-    {
-        if (!$this->Id->contains($id)) {
-            $this->Id[] = $id;
-            $id->setIdTask($this);
-        }
-
-        return $this;
-    }
-
-    public function removeId(PreviousTask $id): self
-    {
-        if ($this->Id->removeElement($id)) {
-            // set the owning side to null (unless already changed)
-            if ($id->getIdTask() === $this) {
-                $id->setIdTask(null);
-            }
-        }
-
-        return $this;
-    }
-
 
 }

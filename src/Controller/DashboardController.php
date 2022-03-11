@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\PreviousTask;
 use App\Entity\Tache;
 use App\Repository\TacheRepository;
 use Doctrine\ORM\EntityManagerInterface;
