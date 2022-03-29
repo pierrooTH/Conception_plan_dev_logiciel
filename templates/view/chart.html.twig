@@ -52,25 +52,236 @@
 					<input hidden id="idLettre{{ cpt }}" value="{{ Tache.letter }}" >
 					<input hidden id="idDuree{{ cpt }}" value="{{ Tache.duration }}" >
 					<input hidden id="idPreviousLetter{{ cpt }}" value="{{ Tache.previousLetter }}" >
+					<input hidden id="idPreviousLetter1{{ cpt }}" value="{{ Tache.previousLetter }}" >
+					<input hidden id="id{{ cpt }}" value="{{ Tache.id }}" >
 					<script id="code">
 						function init() {
 
 							let letter = [];
 							let duree = [];
 							let previousLetter = [];
+							let previousLetter1 = [];
+							let lien = [];
+							let idTab = [];
 
 							for (let i = 1; i < 10000 ; i++) {
 								let inputLettre = document.getElementById('idLettre'+i);
 								let inputDuree = document.getElementById('idDuree'+i);
 								let inputPreviousLetter = document.getElementById('idPreviousLetter'+i);
+								let inputPreviousLetter1 = document.getElementById('idPreviousLetter1'+i);
+								let id = document.getElementById('id'+i);
 								if (inputLettre === null) {
 									break;
 								} else {
+									idTab.push(id.value)
 									letter.push(inputLettre.value);
 									duree.push(inputDuree.value);
 									previousLetter.push(inputPreviousLetter.value);
+									previousLetter1.push(inputPreviousLetter1.value)
 								}
 							}
+
+
+							for(let i = 0; i<previousLetter1.length;i++){
+								let to = 0;
+								if(previousLetter1[i].length > 1){
+									let tobis = 0;
+									for(j = 0; j<3; j++){
+										if(previousLetter1[i].split(',')[tobis] !== null){
+											if(previousLetter1[i].split(',')[tobis] === 'A'){
+												to = 1;
+												tobis++;
+												var pre = {"from": idTab[i], "to" : to.toString()}
+											}else if(previousLetter1[i].split(',')[tobis] === 'B'){
+												to = 2;
+												tobis++;
+												var pre = {"from": idTab[i], "to" : to.toString()};
+											}else if(previousLetter1[i].split(',')[tobis] === 'C'){
+												to = 3;
+												tobis++;
+												var pre = {"from": idTab[i], "to" : to.toString()};
+											}else if(previousLetter1[i].split(',')[tobis] === 'D'){
+												to = 4;
+												tobis++;
+												var pre = {"from": idTab[i], "to" : to.toString()};
+											}else if(previousLetter1[i].split(',')[tobis] === 'E'){
+												to = 5;
+												tobis++;
+												var pre = {"from": idTab[i], "to" : to.toString()};
+											}else if(previousLetter1[i].split(',')[tobis] === 'F'){
+												to = 6;
+												tobis++;
+												var pre = {"from": idTab[i], "to" : to.toString()};
+											}else if(previousLetter1[i].split(',')[tobis] === 'G'){
+												to = 7;
+												tobis++;
+												var pre = {"from": idTab[i], "to" : to.toString()};
+											}else if(previousLetter1[i].split(',')[tobis] === 'H'){
+												to = 8;
+												tobis++;
+												var pre = {"from": idTab[i], "to" : to.toString()};
+											}else if(previousLetter1[i].split(',')[tobis] === 'I'){
+												to = 9;
+												tobis++;
+												var pre = {"from": idTab[i], "to" : to.toString()};
+											}else if(previousLetter1[i].split(',')[tobis] === 'J'){
+												to = 10;
+												tobis++;
+												var pre = {"from": idTab[i], "to" : to.toString()};
+											}else if(previousLetter1[i].split(',')[tobis] === 'K'){
+												to = 11;
+												tobis++;
+												var pre = {"from": idTab[i], "to" : to.toString()};
+											}else if(previousLetter1[i].split(',')[tobis] === 'L'){
+												to = 12;
+												tobis++;
+												var pre = {"from": idTab[i], "to" : to.toString()};
+											}else if(previousLetter1[i].split(',')[tobis] === 'M'){
+												to = 13;
+												tobis++;
+												var pre = {"from": idTab[i], "to" : to.toString()};
+											}else if(previousLetter1[i].split(',')[tobis] === 'N'){
+												to = 14;
+												tobis++;
+												var pre = {"from": idTab[i], "to" : to.toString()};
+											}else if(previousLetter1[i].split(',')[tobis] === 'O'){
+												to = 15;
+												tobis++;
+												var pre = {"from": idTab[i], "to" : to.toString()};
+											}else if(previousLetter1[i].split(',')[tobis] === 'P'){
+												to = 16;
+												tobis++;
+												var pre = {"from": idTab[i], "to" : to.toString()};
+											}else if(previousLetter1[i].split(',')[tobis] === 'Q'){
+												to = 17;
+												tobis++;
+												var pre = {"from": idTab[i], "to" : to.toString()};
+											}else if(previousLetter1[i].split(',')[tobis] === 'R'){
+												to = 18;
+												tobis++;
+												var pre = {"from": idTab[i], "to" : to.toString()};
+											}else if(previousLetter1[i].split(',')[tobis] === 'S'){
+												to = 19;
+												tobis++;
+												var pre = {"from": idTab[i], "to" : to.toString()};
+											}else if(previousLetter1[i].split(',')[tobis] === 'T'){
+												to = 20;
+												tobis++;
+												var pre = {"from": idTab[i], "to" : to.toString()};
+											}else if(previousLetter1[i].split(',')[tobis] === 'U'){
+												to = 21;
+												tobis++;
+												var pre = {"from": idTab[i], "to" : to.toString()};
+											}else if(previousLetter1[i].split(',')[tobis] === 'V'){
+												to = 22;
+												tobis++;
+												var pre = {"from": idTab[i], "to" : to.toString()};
+											}else if(previousLetter1[i].split(',')[tobis] === 'W'){
+												to = 23;
+												tobis++;
+												var pre = {"from": idTab[i], "to" : to.toString()};
+											}else if(previousLetter1[i].split(',')[tobis] === 'X'){
+												to = 24;
+												tobis++;
+												var pre = {"from": idTab[i], "to" : to.toString()};
+											}else if(previousLetter1[i].split(',')[tobis] === 'Y'){
+												to = 25;
+												tobis++;
+												var pre = {"from": idTab[i], "to" : to.toString()};
+											}else if(previousLetter1[i].split(',')[tobis] === 'Z'){
+												to = 26;
+												tobis++;
+												var pre = {"from": idTab[i], "to" : to.toString()};
+											}
+											lien.push(pre)
+										}else{
+											break;
+										}
+									}
+								}else{
+									if(previousLetter1[i] === 'A'){
+										to = 1;
+										var pre = {"from": idTab[i], "to" : to.toString()}
+									}else if(previousLetter1[i] === 'B'){
+										to = 2;
+										var pre = {"from": idTab[i], "to" : to.toString()};
+									}else if(previousLetter1[i] === 'C'){
+										to = 3;
+										var pre = {"from": idTab[i], "to" : to.toString()};
+									}else if(previousLetter1[i] === 'D'){
+										to = 4;
+										var pre = {"from": idTab[i], "to" : to.toString()};
+									}else if(previousLetter1[i] === 'E'){
+										to = 5;
+										var pre = {"from": idTab[i], "to" : to.toString()};
+									}else if(previousLetter1[i] === 'F'){
+										to = 6;
+										var pre = {"from": idTab[i], "to" : to.toString()};
+									}else if(previousLetter1[i] === 'G'){
+										to = 7;
+										var pre = {"from": idTab[i], "to" : to.toString()};
+									}else if(previousLetter1[i] === 'H'){
+										to = 8;
+										var pre = {"from": idTab[i], "to" : to.toString()};
+									}else if(previousLetter1[i] === 'I'){
+										to = 9;
+										var pre = {"from": idTab[i], "to" : to.toString()};
+									}else if(previousLetter1[i] === 'J'){
+										to = 10;
+										var pre = {"from": idTab[i], "to" : to.toString()};
+									}else if(previousLetter1[i] === 'K'){
+										to = 11;
+										var pre = {"from": idTab[i], "to" : to.toString()};
+									}else if(previousLetter1[i] === 'L'){
+										to = 12;
+										var pre = {"from": idTab[i], "to" : to.toString()};
+									}else if(previousLetter1[i] === 'M'){
+										to = 13;
+										var pre = {"from": idTab[i], "to" : to.toString()};
+									}else if(previousLetter1[i] === 'N'){
+										to = 14;
+										var pre = {"from": idTab[i], "to" : to.toString()};
+									}else if(previousLetter1[i] === 'O'){
+										to = 15;
+										var pre = {"from": idTab[i], "to" : to.toString()};
+									}else if(previousLetter1[i] === 'P'){
+										to = 16;
+										var pre = {"from": idTab[i], "to" : to.toString()};
+									}else if(previousLetter1[i] === 'Q'){
+										to = 17;
+										var pre = {"from": idTab[i], "to" : to.toString()};
+									}else if(previousLetter1[i] === 'R'){
+										to = 18;
+										var pre = {"from": idTab[i], "to" : to.toString()};
+									}else if(previousLetter1[i] === 'S'){
+										to = 19;
+										var pre = {"from": idTab[i], "to" : to.toString()};
+									}else if(previousLetter1[i] === 'T'){
+										to = 20;
+										var pre = {"from": idTab[i], "to" : to.toString()};
+									}else if(previousLetter1[i] === 'U'){
+										to = 21;
+										var pre = {"from": idTab[i], "to" : to.toString()};
+									}else if(previousLetter1[i] === 'V'){
+										to = 22;
+										var pre = {"from": idTab[i], "to" : to.toString()};
+									}else if(previousLetter1[i] === 'W'){
+										to = 23;
+										var pre = {"from": idTab[i], "to" : to.toString()};
+									}else if(previousLetter1[i] === 'X'){
+										to = 24;
+										var pre = {"from": idTab[i], "to" : to.toString()};
+									}else if(previousLetter1[i] === 'Y'){
+										to = 25;
+										var pre = {"from": idTab[i], "to" : to.toString()};
+									}else if(previousLetter1[i] === 'Z'){
+										to = 26;
+										var pre = {"from": idTab[i], "to" : to.toString()};
+									}
+									lien.push(pre)
+								}
+							}
+
 
 							let tab = []
 							var cpt = 0
@@ -80,7 +291,6 @@
 								tab.push(arr);
 							}
 
-							console.log(previousLetter);
 
 							// Since 2.2 you can also author concise templates with method chaining instead of GraphObject.make
 							// For details, see https://gojs.net/latest/intro/buildingObjects.html
@@ -207,7 +417,7 @@
 								{ from: 7, to: 9 },
 								{ from: 8, to: 9 }
 							];
-							myDiagram.model = new go.GraphLinksModel(tab, linkDataArray);
+							myDiagram.model = new go.GraphLinksModel(tab, lien);
 
 							// create an unbound Part that acts as a "legend" for the diagram
 							myDiagram.add(
