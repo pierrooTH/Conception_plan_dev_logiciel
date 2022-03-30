@@ -54,6 +54,7 @@
 					<input hidden id="idPreviousLetter{{ cpt }}" value="{{ Tache.previousLetter }}" >
 					<input hidden id="idPreviousLetter1{{ cpt }}" value="{{ Tache.previousLetter }}" >
 					<input hidden id="id{{ cpt }}" value="{{ Tache.id }}" >
+					<input hidden id="level{{ cpt }}" value="{{ Tache.level }}" >
 					<script id="code">
 						function init() {
 
@@ -63,6 +64,7 @@
 							let previousLetter1 = [];
 							let lien = [];
 							let idTab = [];
+							let levelTab = [];
 
 							for (let i = 1; i < 10000 ; i++) {
 								let inputLettre = document.getElementById('idLettre'+i);
@@ -70,16 +72,140 @@
 								let inputPreviousLetter = document.getElementById('idPreviousLetter'+i);
 								let inputPreviousLetter1 = document.getElementById('idPreviousLetter1'+i);
 								let id = document.getElementById('id'+i);
+								let level = document.getElementById('level'+i);
 								if (inputLettre === null) {
 									break;
 								} else {
-									idTab.push(id.value)
+									levelTab.push(level.value);
+									idTab.push(id.value);
 									letter.push(inputLettre.value);
 									duree.push(inputDuree.value);
 									previousLetter.push(inputPreviousLetter.value);
-									previousLetter1.push(inputPreviousLetter1.value)
+									previousLetter1.push(inputPreviousLetter1.value);
 								}
 							}
+
+
+							let nbLevel = [];
+							let cpt1 = 0;
+							for(let i = 0; i<levelTab.length+1; i++){
+								if(levelTab[i] === '1'){
+									cpt1+=1;
+								}
+							}
+							nbLevel.push(cpt1);
+							let cpt2 = 0;
+							for(let i = 0; i<levelTab.length+1; i++){
+								if(levelTab[i] === '2'){
+									cpt2+=1;
+								}
+							}
+							nbLevel.push(cpt2);
+							let cpt3 = 0;
+							for(let i = 0; i<levelTab.length+1; i++){
+								if(levelTab[i] === '3'){
+									cpt3+=1;
+								}
+							}
+							nbLevel.push(cpt3);
+							let cpt4 = 0;
+							for(let i = 0; i<levelTab.length+1; i++){
+								if(levelTab[i] === '4'){
+									cpt4+=1;
+								}
+							}
+							nbLevel.push(cpt4);
+							let cpt5 = 0;
+							for(let i = 0; i<levelTab.length+1; i++){
+								if(levelTab[i] === '5'){
+									cpt5+=1;
+								}
+							}
+							nbLevel.push(cpt5);
+							let cpt6 = 0;
+							for(let i = 0; i<levelTab.length+1; i++){
+								if(levelTab[i] === '6'){
+									cpt6+=1;
+								}
+							}
+							nbLevel.push(cpt6);
+							let cpt7 = 0;
+							for(let i = 0; i<levelTab.length+1; i++){
+								if(levelTab[i] === '7'){
+									cpt7+=1;
+								}
+							}
+							nbLevel.push(cpt7);
+
+							for(let i = 0; i<nbLevel.length;i++){
+								if(nbLevel[i] === 0){
+									nbLevel.pop();
+								}
+							}
+							nbLevel.pop();
+
+
+							let minLevel = [];
+							let min1;
+							for(let i = 0; i<nbLevel[0];i++){
+								min1 = duree[0];
+								if(min1>duree[i]){
+									min1 = duree[i];
+								}
+							}
+							for(let i = 0; i<nbLevel[0];i++){
+								minLevel.push(min1)
+							}
+
+
+							let min2;
+							let nb = 1;
+							while(nb <= nbLevel[1]+1){
+								nb++;
+								min2 = 10000;
+								if(min2>duree[nb]){
+									min2 = duree[nb];
+								}
+
+							}
+							for(let i = 0; i<nbLevel[1];i++){
+								minLevel.push(min2)
+							}
+
+							/*let min3;
+							let nb1 = 1;
+							let nbbis1 = 1+nb;
+							while(nb1 <= nbLevel[2]+1){
+								nb1++;
+								min3 = 10000;
+								if(min3>duree[nbbis1]){
+									min3 = duree[nbbis1];
+								}
+							}
+							for(let i = 0; i<nbLevel[2];i++){
+								minLevel.push(min3)
+							}
+
+							let min4;
+							let nb2 = 1;
+							let nbbis2 = 1+nb1;
+							while(nb2 <= nbLevel[3]+1){
+								nb2++;
+								min4 = 10000;
+								if(min4>duree[nbbis2]){
+									min4 = duree[nbbis2];
+								}
+							}
+							for(let i = 0; i<nbLevel[3];i++){
+								minLevel.push(min4)
+							}*/
+
+							console.log(minLevel)
+
+
+
+
+
 
 
 							for(let i = 0; i<previousLetter1.length;i++){
@@ -287,9 +413,10 @@
 							var cpt = 0
 							for(let i = 0; i<letter.length;i++){
 								cpt++
-								var arr = {"key": cpt, "text" : letter[i], "length" : duree[i], "earlyStart" : 0, "lateFinish" : 0, "critical" : true };
+								var arr = {"key": cpt, "text" : letter[i], "length" : duree[i], "earlyStart" : minLevel[i], "lateFinish" : 0, "critical" : true };
 								tab.push(arr);
 							}
+							tab.push({ key: letter.length+1, text: "Fin", length: 0, earlyStart: 19.51, lateFinish: 19.51, critical: true })
 
 
 							// Since 2.2 you can also author concise templates with method chaining instead of GraphObject.make
@@ -431,12 +558,12 @@
 													$(go.RowColumnDefinition, { row: 2, separatorStroke: "black" }),
 													$(go.TextBlock, "Early Start",
 															{ row: 0, column: 0, margin: 5, textAlign: "center" }),
-													$(go.TextBlock, "Length",
+													$(go.TextBlock, "Durée",
 															{ row: 0, column: 1, margin: 5, textAlign: "center" }),
 													$(go.TextBlock, "Early Finish",
 															{ row: 0, column: 2, margin: 5, textAlign: "center" }),
 
-													$(go.TextBlock, "Activity Name",
+													$(go.TextBlock, "Conception Plan Dev",
 															{
 																row: 1, column: 0, columnSpan: 3, margin: 5,
 																textAlign: "center", font: "bold 14px sans-serif"
@@ -464,7 +591,7 @@
 				</div>
 				<!-- * * * * * * * * * * * * * -->
 				<!--  End of GoJS sample code  -->
-				<p class="text-xs font-weight-bold mb-0">{{ positionL }}</p>
+				<p class="text-xs font-weight-bold mb-0"></p>
 			</div>
 			<!--  This script is part of the gojs.net website, and is not needed to run the sample -->
 
