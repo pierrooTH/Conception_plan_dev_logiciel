@@ -50,6 +50,7 @@
                                 <thead>
                                 <tr>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Type de risque</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nom du risque</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Probabilité</th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Sévérité</th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Coût de la réduction du risque</th>
@@ -68,6 +69,9 @@
                                                 <h6 class="mb-0 text-sm">{{ risk.typeOfRisk }}</h6>
                                             </div>
                                         </div>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">{{ risk.risk }}</p>
                                     </td>
                                     <td>
                                         <p class="text-xs font-weight-bold mb-0">{{ risk.probability }} %</p>
@@ -90,7 +94,7 @@
                                     </td>
 
                                     <td class="align-middle">
-                                        <form method="post" action="{{ path('tache_delete', {'id': risk.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce risque ?');">
+                                        <form method="post" action="{{ path('risk_delete', {'id': risk.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce risque ?');">
                                             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ risk.id) }}">
                                             <button class="text-secondary font-weight-bold text-xs">Supprimer</button>
                                         </form>
@@ -111,29 +115,37 @@
                         {{ form_start(formRisk) }}
                         <div class="row mb-4">
                             <div class="col-6 mb-4">
+                                {{ form_label(formRisk.typeOfRisk, 'Type de risque') }}
                                 {{ form_widget(formRisk.typeOfRisk, { 'value': '' }) }}
                             </div>
+                            <div class="col-6 mb-4">
+                                {{ form_label(formRisk.risk, 'Nom du risque') }}
+                                {{ form_widget(formRisk.risk, { 'value': '' }) }}
+                            </div>
                             <div class="col-6">
+                                {{ form_label(formRisk.probability, 'Probabilité') }}
                                 {{ form_widget(formRisk.probability, { 'value': '' }) }}
                             </div>
                             <div class="col-6">
+                                {{ form_label(formRisk.severity, 'Sévérité') }}
                                 {{ form_widget(formRisk.severity, { 'value': '' }) }}
                             </div>
-                            <div class="col-6">
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-6 mb-4">
+                                {{ form_label(formRisk.costRiskReduction, 'Coût') }}
                                 {{ form_widget(formRisk.costRiskReduction, { 'value': '' }) }}
                             </div>
-                        </div>
-
-                        <div class="row mb-4">
-                            <div class="col-6">
+                            <div class="col-6 mb-4">
+                                {{ form_label(formRisk.owner, 'Propriétaire') }}
                                 {{ form_widget(formRisk.owner, { 'value': '' }) }}
                             </div>
                             <div class="col-6">
+                                {{ form_label(formRisk.meansDetection, 'Moyens de détection') }}
                                 {{ form_widget(formRisk.meansDetection, { 'value': '' }) }}
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12">
+                            <div class="col-6">
+                                {{ form_label(formRisk.correctiveMeasures, 'Mesures de corrections') }}
                                 {{ form_widget(formRisk.correctiveMeasures, { 'value': '' }) }}
                             </div>
                         </div>

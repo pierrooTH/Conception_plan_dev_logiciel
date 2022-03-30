@@ -23,6 +23,11 @@ class Risk
     private $typeOfRisk;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $risk;
+
+    /**
      * @ORM\Column(type="integer", nullable=true)
      */
     private $probability;
@@ -65,6 +70,18 @@ class Risk
     public function setTypeOfRisk(string $typeOfRisk): self
     {
         $this->typeOfRisk = $typeOfRisk;
+
+        return $this;
+    }
+
+    public function getRisk(): ?string
+    {
+        return $this->risk;
+    }
+
+    public function setRisk(string $risk): self
+    {
+        $this->risk = $risk;
 
         return $this;
     }

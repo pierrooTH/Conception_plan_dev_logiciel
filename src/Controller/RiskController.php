@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Risk;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -24,9 +25,37 @@ class RiskController extends AbstractController
         $risk = new Risk();
 
         $form = $this->createFormBuilder($risk)
-            ->add('typeOfRisk', TextType::class, [
+            ->add('typeOfRisk', ChoiceType::class, [
+                'choices'  => [
+                    'Taille du projet' => 'Taille du projet',
+                    'Structure de l\'équipe' => 'Structure de l\'équipe',
+                    'Calendrier du projet' => 'Calendrier du projet',
+                    'Dotation du projet' => 'Dotation du projet',
+                    'Rentabilité' => 'Rentabilité',
+                    'Sous-traitance' => 'Sous-traitance',
+                    'Disponibilité des équipes' => 'Disponibilité des équipes',
+                    'Clôture du périmètre fonctionnel' => 'Clôture du périmètre fonctionnel',
+                    'Compréhension des processus' => 'Compréhension des processus',
+                    'Connaissance du domaine métier' => 'Connaissance du domaine métier',
+                    'Conduite du changement' => 'Conduite du changement',
+                    'Adhérence' => 'Adhérence',
+                    'Plateforme de développement' => 'Plateforme de développement',
+                    'Utilisation de composants tiers' => 'Utilisation de composants tiers',
+                    'Maîtrise des technologies par l\'équipe' => 'Maîtrise des technologies par l\'équipe',
+                    'Respects des contraintes environnementales' => 'Respects des contraintes environnementales',
+                    'Type de développement' => 'Type de développement',
+                    'Adaptation d’un développement existant' => 'Adaptation d’un développement existant',
+                    'Généricité et réutilisation du produit' => 'Généricité et réutilisation du produit',
+                    'Coût et charge du projet' => 'Coût et charge du projet',
+                ],
                 'attr' =>[
                     'placeholder' => "Type de risque",
+                    'class' => 'form-control'
+                ]
+            ])
+            ->add('risk', TextType::class, [
+                'attr' =>[
+                    'placeholder' => "Nom du risque",
                     'class' => 'form-control'
                 ]
             ])
@@ -36,7 +65,13 @@ class RiskController extends AbstractController
                     'class' => 'form-control'
                 ]
             ])
-            ->add('severity', NumberType::class, [
+            ->add('severity', ChoiceType::class, [
+                'choices'  => [
+                    0 => 0,
+                    1 => 1,
+                    2 => 2,
+                    3 => 3
+                ],
                 'attr' =>[
                     'placeholder' => "Sévérité du risque",
                     'class' => 'form-control'
@@ -45,7 +80,8 @@ class RiskController extends AbstractController
             ->add('costRiskReduction', TextType::class, [
                 'attr' =>[
                     'placeholder' => "Coût de la réduction du risque",
-                    'class' => 'form-control'
+                    'class' => 'form-control',
+                    ''
                 ]
             ])
             ->add('owner', TextType::class, [
@@ -103,7 +139,7 @@ class RiskController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="tache_delete", methods={"POST"})
+     * @Route("/{id}", name="risk_delete", methods={"POST"})
      */
     public function delete(Request $request, EntityManagerInterface $manager, Risk $risk): Response
     {
