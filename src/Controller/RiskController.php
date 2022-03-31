@@ -60,12 +60,14 @@ class RiskController extends AbstractController
                 ]
             ])
             ->add('probability', NumberType::class, [
+                'required' => false,
                 'attr' =>[
                     'placeholder' => "Probabilité du risque (en %)",
                     'class' => 'form-control'
                 ]
             ])
             ->add('severity', ChoiceType::class, [
+                'required' => false,
                 'choices'  => [
                     0 => 0,
                     1 => 1,
@@ -78,6 +80,7 @@ class RiskController extends AbstractController
                 ]
             ])
             ->add('costRiskReduction', TextType::class, [
+                'required' => false,
                 'attr' =>[
                     'placeholder' => "Coût de la réduction du risque",
                     'class' => 'form-control',
@@ -85,18 +88,21 @@ class RiskController extends AbstractController
                 ]
             ])
             ->add('owner', TextType::class, [
+                'required' => false,
                 'attr' =>[
                     'placeholder' => "Propriétaire du risque",
                     'class' => 'form-control'
                 ]
             ])
             ->add('meansDetection', TextType::class, [
+                'required' => false,
                 'attr' =>[
                     'placeholder' => "Moyens de détection du risque",
                     'class' => 'form-control'
                 ]
             ])
             ->add('correctiveMeasures', TextType::class, [
+                'required' => false,
                 'attr' =>[
                     'placeholder' => "Mesures de correction du risque",
                     'class' => 'form-control'

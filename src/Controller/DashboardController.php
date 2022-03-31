@@ -42,6 +42,7 @@ class DashboardController extends AbstractController
                         ]
                     ])
                      ->add('description', TextareaType::class, [
+
                         'attr' =>[
                             'placeholder' => "Description",
                             'class' => 'form-control'
@@ -60,10 +61,13 @@ class DashboardController extends AbstractController
                         ]
                     ])
                     ->add('previousLetter', TextType::class, [
+                        'required'=>false,
                         'attr' =>[
                             'placeholder' => "Tâche précédente",
-                            'class' => 'form-control'
+                            'class' => 'form-control',
+
                         ]
+
                      ])
                      ->getForm();
                 

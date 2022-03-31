@@ -28,7 +28,7 @@ class Tache
     private $letter;
 
      /**
-     * @ORM\Column(name="previousLetter",type="string", length=5)
+     * @ORM\Column(name="previousLetter",type="string", length=5, nullable=true)
      */
     private $previousLetter;
 
@@ -43,7 +43,7 @@ class Tache
     private $duration;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="integer")
      */
     private $level;
 

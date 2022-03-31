@@ -45,6 +45,7 @@ class AnomalyController extends AbstractController
                 ]
             ])
             ->add('scenario', TextareaType::class, [
+                'required' => false,
                 'attr' =>[
                     'placeholder' => "Scénario",
                     'class' => 'form-control'
