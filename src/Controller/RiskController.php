@@ -94,14 +94,14 @@ class RiskController extends AbstractController
                     'class' => 'form-control'
                 ]
             ])
-            ->add('meansDetection', TextType::class, [
+            ->add('meansDetection', TextareaType::class, [
                 'required' => false,
                 'attr' =>[
                     'placeholder' => "Moyens de détection du risque",
                     'class' => 'form-control'
                 ]
             ])
-            ->add('correctiveMeasures', TextType::class, [
+            ->add('correctiveMeasures', TextareaType::class, [
                 'required' => false,
                 'attr' =>[
                     'placeholder' => "Mesures de correction du risque",
