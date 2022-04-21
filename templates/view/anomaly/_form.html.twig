@@ -1,0 +1,51 @@
+{% block container %}
+
+<div class="col-6">
+    <div class="card z-index-0">
+        <div class="card-body">
+            {{ form_start(formAnomaly) }}
+            <div class="row mb-4">
+                <div class="col-6 mb-4">
+                    {{ form_label(formAnomaly.webPageLocation, 'Emplacement de la page') }}
+                    {{ form_widget(formAnomaly.webPageLocation, { 'value': '' }) }}
+                </div>
+                <div class="col-6">
+                    {{ form_label(formAnomaly.state, 'État de l\'anomalie') }}
+                    {{ form_widget(formAnomaly.state, { 'value': '' }) }}
+                </div>
+                <div class="col-6">
+                    {{ form_label(formAnomaly.date, 'Date de l\'anomalie') }}
+                    {{ form_widget(formAnomaly.date, { 'value': '' }) }}
+                </div>
+                <div class="col-6">
+                    {{ form_label(formAnomaly.author, 'Auteur') }}
+                    {{ form_widget(formAnomaly.author, { 'value': '' }) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    {{ form_label(formAnomaly.scenario, 'Description de l\'anomalie rencontrée') }}
+                    {{ form_widget(formAnomaly.scenario, { 'value': '' }) }}
+                </div>
+            </div>
+
+            <div class="text-center">
+                {{ form_widget(formAnomaly.submit, { 'label': 'Envoyer' } )}}
+            </div>
+            <div class='row'>
+                <div class='col-12'>
+                    {% if repvisu == '' %}
+
+                    {% elseif repvisu == 'Envoyé'%}
+                        <p class='col-12 badge badge-sm bg-gradient-success'>{{ repvisu }}</p>
+                    {% else %}
+                        <p class='col-12 badge badge-sm bg-gradient-danger'>{{ repvisu }}</p>
+                    {% endif %}
+                </div>
+            </div>
+            {{ form_end(formAnomaly) }}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
