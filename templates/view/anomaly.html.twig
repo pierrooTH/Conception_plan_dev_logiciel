@@ -80,6 +80,10 @@
                                             <span class="text-secondary text-xs font-weight-bold">{{ ano.scenario }}</span>
                                         </td>
 
+                                        <td class="align-middle text-center">
+                                            <a href="{{ path('anomaly_edit', {'id': ano.id}) }}" role="button">Editer</a>
+                                        </td>
+
                                         <td class="align-middle">
                                             <form method="post" action="{{ path('anomaly_delete', {'id': ano.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette anomalie ?');">
                                                 <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ ano.id) }}">

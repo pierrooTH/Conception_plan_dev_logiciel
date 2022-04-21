@@ -79,12 +79,16 @@
 												<td class="align-middle text-center">
 													<span class="text-secondary text-xs font-weight-bold">{{ Tache.level }}</span>
 												</td>
+												<td class="align-middle text-center">
+													<a href="{{ path('tache_edit', {'id': Tache.id}) }}" role="button">Editer</a>
+												</td>
 												<td class="align-middle">
 													<form method="post" action="{{ path('tache_delete', {'id': Tache.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette tâche ?');">
 														<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ Tache.id) }}">
 														<button class="text-secondary font-weight-bold text-xs">Supprimer</button>
 													</form>
 												</td>
+
 											</tr>
 										</tbody>
 									{% endfor %}
@@ -109,20 +113,25 @@
 							{{ form_start(formTache) }}
 							<div class="row mb-4">
 								<div class="col-6 mb-4">
+									{{ form_label(formTache.letter, 'Tâche') }}
 									{{ form_widget(formTache.letter, { 'value': '' }) }}
 								</div>
 								<div class="col-6">
+									{{ form_label(formTache.duration, 'Durée') }}
 									{{ form_widget(formTache.duration, { 'value': '' }) }}
 								</div>
 								<div class="col-6">
+									{{ form_label(formTache.level, 'Niveau') }}
 									{{ form_widget(formTache.level, { 'value': '' }) }}
 								</div>
 								<div class="col-6">
+									{{ form_label(formTache.previousLetter, 'Tâche précédente') }}
 									{{ form_widget(formTache.previousLetter, { 'value': '' }) }}
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-12">
+									{{ form_label(formTache.description, 'Description') }}
 									{{ form_widget(formTache.description, { 'value': '' }) }}
 								</div>
 							</div>

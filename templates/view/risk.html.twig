@@ -93,6 +93,10 @@
                                         <span class="text-secondary text-xs font-weight-bold">{{ risk.correctiveMeasures }}</span>
                                     </td>
 
+                                    <td class="align-middle text-center">
+                                        <a href="{{ path('risk_edit', {'id': risk.id}) }}" role="button">Editer</a>
+                                    </td>
+
                                     <td class="align-middle">
                                         <form method="post" action="{{ path('risk_delete', {'id': risk.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce risque ?');">
                                             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ risk.id) }}">

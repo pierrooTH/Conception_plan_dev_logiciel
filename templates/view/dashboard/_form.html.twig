@@ -1,0 +1,51 @@
+{% block container %}
+
+    <div class="col-6">
+        <div class="card z-index-0">
+            <div class="card-body">
+                {{ form_start(formTache) }}
+                <div class="row mb-4">
+                    <div class="col-6 mb-4">
+                        {{ form_label(formTache.letter, 'Tâche') }}
+                        {{ form_widget(formTache.letter, { 'value': '' }) }}
+                    </div>
+                    <div class="col-6">
+                        {{ form_label(formTache.duration, 'Durée') }}
+                        {{ form_widget(formTache.duration, { 'value': '' }) }}
+                    </div>
+                    <div class="col-6">
+                        {{ form_label(formTache.level, 'Niveau') }}
+                        {{ form_widget(formTache.level, { 'value': '' }) }}
+                    </div>
+                    <div class="col-6">
+                        {{ form_label(formTache.previousLetter, 'Tâche précédente') }}
+                        {{ form_widget(formTache.previousLetter, { 'value': '' }) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        {{ form_label(formTache.description, 'Description') }}
+                        {{ form_widget(formTache.description, { 'value': '' }) }}
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    {{ form_widget(formTache.submit, { 'label': 'Envoyer' } )}}
+                </div>
+                <div class='row'>
+                    <div class='col-12'>
+                        {% if repvisu == '' %}
+
+                        {% elseif repvisu == 'Envoyé'%}
+                            <p class='col-12 badge badge-sm bg-gradient-success'>{{ repvisu }}</p>
+                        {% else %}
+                            <p class='col-12 badge badge-sm bg-gradient-danger'>{{ repvisu }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                {{ form_end(formTache) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

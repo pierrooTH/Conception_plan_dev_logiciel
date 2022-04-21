@@ -1,0 +1,62 @@
+{% block container %}
+    <div class="col-6">
+        <div class="card z-index-0">
+            <div class="card-body">
+                {{ form_start(formRisk) }}
+                <div class="row mb-4">
+                    <div class="col-6 mb-4">
+                        {{ form_label(formRisk.typeOfRisk, 'Type de risque') }}
+                        {{ form_widget(formRisk.typeOfRisk, { 'value': '' }) }}
+                    </div>
+                    <div class="col-6 mb-4">
+                        {{ form_label(formRisk.risk, 'Nom du risque') }}
+                        {{ form_widget(formRisk.risk, { 'value': '' }) }}
+                    </div>
+                    <div class="col-6">
+                        {{ form_label(formRisk.probability, 'Probabilité') }}
+                        {{ form_widget(formRisk.probability, { 'value': '' }) }}
+                    </div>
+                    <div class="col-6">
+                        {{ form_label(formRisk.severity, 'Sévérité') }}
+                        {{ form_widget(formRisk.severity, { 'value': '' }) }}
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-6 mb-4">
+                        {{ form_label(formRisk.costRiskReduction, 'Coût') }}
+                        {{ form_widget(formRisk.costRiskReduction, { 'value': '' }) }}
+                    </div>
+                    <div class="col-6 mb-4">
+                        {{ form_label(formRisk.owner, 'Propriétaire') }}
+                        {{ form_widget(formRisk.owner, { 'value': '' }) }}
+                    </div>
+                    <div class="col-6">
+                        {{ form_label(formRisk.meansDetection, 'Moyens de détection') }}
+                        {{ form_widget(formRisk.meansDetection, { 'value': '' }) }}
+                    </div>
+                    <div class="col-6">
+                        {{ form_label(formRisk.correctiveMeasures, 'Mesures de corrections') }}
+                        {{ form_widget(formRisk.correctiveMeasures, { 'value': '' }) }}
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    {{ form_widget(formRisk.submit, { 'label': 'Envoyer' } )}}
+                </div>
+                <div class='row'>
+                    <div class='col-12'>
+                        {% if repvisu == '' %}
+
+                        {% elseif repvisu == 'Envoyé'%}
+                            <p class='col-12 badge badge-sm bg-gradient-success'>{{ repvisu }}</p>
+                        {% else %}
+                            <p class='col-12 badge badge-sm bg-gradient-danger'>{{ repvisu }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                {{ form_end(formRisk) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

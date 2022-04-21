@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class DashboardController extends AbstractController
 {
@@ -61,13 +62,10 @@ class DashboardController extends AbstractController
                         ]
                     ])
                     ->add('previousLetter', TextType::class, [
-                        'required'=>false,
                         'attr' =>[
                             'placeholder' => "Tâche précédente",
                             'class' => 'form-control',
-
                         ]
-
                      ])
                      ->getForm();
                 
@@ -100,16 +98,92 @@ class DashboardController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="tache_delete", methods={"POST"})
+     * @Route("/{id}/dashboard_edit", name="tache_edit", methods={"GET","POST"})
+     * @ParamConverter("tache", options={"id" = "id"})
+     */
+    public function edit(Request $request, Tache $tache, EntityManagerInterface $manager): Response
+    {
+        $form = $this->createFormBuilder($tache)
+            ->add('letter', TextType::class, [
+                'attr' =>[
+                    'placeholder' => "Tâche",
+                    'class' => 'form-control'
+                ]
+            ])
+            ->add('duration', NumberType::class, [
+                'attr' =>[
+                    'placeholder' => "Durée",
+                    'class' => 'form-control'
+                ]
+            ])
+            ->add('description', TextareaType::class, [
+
+                'attr' =>[
+                    'placeholder' => "Description",
+                    'class' => 'form-control'
+                ]
+            ])
+            ->add('level', NumberType::class, [
+                'attr' =>[
+                    'placeholder' => "Level",
+                    'class' => 'form-control'
+                ]
+            ])
+            ->add('submit', SubmitType::class, [
+                'attr' =>[
+                    'label' => "Ajouter une tâche",
+                    'class' => 'btn bg-gradient-dark w-100 my-4 mb-2'
+                ]
+            ])
+            ->add('previousLetter', TextType::class, [
+                'attr' =>[
+                    'placeholder' => "Tâche précédente",
+                    'class' => 'form-control',
+
+                ]
+
+            ])
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        $repvisu =  "";
+
+        if($form->isSubmitted()){
+
+            if($form->isValid()){
+
+                $manager->persist($tache);
+                $manager->flush();
+                $repvisu =  "Envoyé";
+                return $this->redirectToRoute('dashboard');
+
+            }else{
+                $repvisu = "Cette tâche existe déjà ou les champs sont incorrect !";
+            }
+        }
+
+        $repo = $this->getDoctrine()->getRepository(Tache::class);
+        $taches = $repo->findAll();
+
+        return $this->render('view/dashboard/edit.html.twig', [
+            'controller_name' => 'DashboardController',
+            'formTache' => $form->createView(),
+            'taches' => $taches,
+            'repvisu' => $repvisu,
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/dashboard_delete", name="tache_delete", methods={"POST"})
+     * @ParamConverter("tache", options={"id" = "id"})
      */
     public function delete(Request $request, EntityManagerInterface $manager, Tache $tache): Response
     {
         if ($this->isCsrfTokenValid('delete'.$tache->getId(), $request->request->get('_token'))) {
-            $manager = $this->getDoctrine()->getManager();
             $manager->remove($tache);
             $manager->flush();
         }
-
         return $this->redirectToRoute('dashboard');
 
     }
