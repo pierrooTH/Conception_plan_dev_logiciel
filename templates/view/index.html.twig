@@ -1,0 +1,151 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dashboard
+{% endblock %}
+
+{% block activedashboard %}
+	class="nav-link active"
+{% endblock %}
+
+{% block container %}
+	<main
+		class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg ">
+		<!-- Navbar -->
+		<nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" navbar-scroll="true">
+			<div class="container-fluid py-1 px-3">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+						<li class="breadcrumb-item text-sm">
+							<a class="opacity-5 text-dark" href="javascript:;">Pages</a>
+						</li>
+						<li class="breadcrumb-item text-sm text-dark active" aria-current="page">Dashboard</li>
+					</ol>
+					<h6 class="font-weight-bolder mb-0">Dashboard</h6>
+				</nav>
+				<div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+					<div class="ms-md-auto pe-md-3 d-flex align-items-center"></div>
+					<ul class="navbar-nav  justify-content-end">
+						<li class="nav-item d-flex align-items-center">
+							<a href="/" class="nav-link text-body font-weight-bold px-0">
+								<i class="fas fa-power-off me-sm-1"></i>
+								<span class="d-sm-inline d-none">Déconnexion</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<!-- End Navbar -->
+		<div class="container-fluid py-4">
+			<div class="row">
+				<div class="col-6">
+					<div class="card mb-4">
+						<div class="card-header pb-0">
+							<h6>Tableau de tâches</h6>
+						</div>
+						<div class="card-body px-0 pt-0 pb-2">
+							<div class="table-responsive p-0">
+								<table class="table align-items-center mb-0">
+									<thead>
+										<tr>
+											<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tâche</th>
+											<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Descriptif</th>
+											<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Durée</th>
+											<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tâche(s) antérieure(s)</th>
+											<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Niveau de la tâche</th>
+											<th class="text-secondary opacity-7"></th>
+										</tr>
+									</thead>
+									<tbody>
+										{% for Tache in taches %}
+											<tr>
+												<td>
+													<div class="d-flex px-2 py-1">
+														<div class="d-flex flex-column justify-content-center">
+															<h6 class="mb-0 text-sm">{{ Tache.letter }}</h6>
+														</div>
+													</div>
+												</td>
+												<td>
+													<p class="text-xs font-weight-bold mb-0">{{ Tache.description }}</p>
+												</td>
+												<td class="align-middle text-center text-sm">
+													<span class="badge badge-sm bg-gradient-success">{{ Tache.duration }}
+														jours</span>
+												</td>
+												<td class="align-middle text-center">
+													<span class="text-secondary text-xs font-weight-bold">{{Tache.previousLetter}}</span>
+												</td>
+												<td class="align-middle text-center">
+													<span class="text-secondary text-xs font-weight-bold">{{ Tache.level }}</span>
+												</td>
+												<td class="align-middle">
+													<form method="post" action="{{ path('tache_delete', {'id': Tache.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette tâche ?');">
+														<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ Tache.id) }}">
+														<button class="text-secondary font-weight-bold text-xs">Supprimer</button>
+													</form>
+												</td>
+											</tr>
+										</tbody>
+									{% endfor %}
+								</table>
+							</div>
+							{% if taches %}
+							<div class="text-center">
+							<button class="btn bg-gradient-dark w-90 my-4 mb-2">
+								<a style="color: white;" href="/chart">
+								Voir graphique
+								</a>
+							</button>
+						</div>
+							{% endif %}
+						</div>
+					</div>
+					
+				</div>
+				<div class="col-6">
+					<div class="card z-index-0">
+						<div class="card-body">
+							{{ form_start(formTache) }}
+							<div class="row mb-4">
+								<div class="col-6 mb-4">
+									{{ form_widget(formTache.letter, { 'value': '' }) }}
+								</div>
+								<div class="col-6">
+									{{ form_widget(formTache.duration, { 'value': '' }) }}
+								</div>
+								<div class="col-6">
+									{{ form_widget(formTache.level, { 'value': '' }) }}
+								</div>
+								<div class="col-6">
+									{{ form_widget(formTache.previousLetter, { 'value': '' }) }}
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-12">
+									{{ form_widget(formTache.description, { 'value': '' }) }}
+								</div>
+							</div>
+
+							<div class="text-center">
+								{{ form_widget(formTache.submit, { 'label': 'Envoyer' } )}}
+							</div>
+							<div class='row'>
+								<div class='col-12'>
+									{% if repvisu == '' %}
+
+										{% elseif repvisu == 'Envoyé'%}
+											<p class='col-12 badge badge-sm bg-gradient-success'>{{ repvisu }}</p>
+										{% else %}
+											<p class='col-12 badge badge-sm bg-gradient-danger'>{{ repvisu }}</p>
+									{% endif %}
+								</div>
+							</div>
+							{{ form_end(formTache) }}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+	{% endblock %}

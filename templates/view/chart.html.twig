@@ -1,0 +1,601 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Graphique
+{% endblock %}
+
+{% block activechart %} class="nav-link active"{% endblock %}
+
+{% block container %}
+	<main
+		class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg ">
+		<!-- Navbar -->
+		<nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" navbar-scroll="true">
+			<div class="container-fluid py-1 px-3">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+						<li class="breadcrumb-item text-sm">
+							<a class="opacity-5 text-dark" href="javascript:;">Pages</a>
+						</li>
+						<li class="breadcrumb-item text-sm text-dark active" aria-current="page">Graphique</li>
+					</ol>
+					<h6 class="font-weight-bolder mb-0">Graphique</h6>
+				</nav>
+				<div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+					<div class="ms-md-auto pe-md-3 d-flex align-items-center"></div>
+					<ul class="navbar-nav  justify-content-end">
+						<li class="nav-item d-flex align-items-center">
+							<a href="/" class="nav-link text-body font-weight-bold px-0">
+								<i class="fas fa-power-off me-sm-1"></i>
+								<span class="d-sm-inline d-none">Déconnexion</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+
+
+		<!-- End Navbar -->
+		<div class="container-fluid py-4">
+
+			<div class="md:flex flex-col md:flex-row md:min-h-screen w-full max-w-screen-xl mx-auto">
+				<div id="navSide" class="flex flex-col w-full md:w-48 text-gray-700 bg-white flex-shrink-0"></div>
+				<!-- * * * * * * * * * * * * * -->
+				<!-- Start of GoJS sample code -->
+				<script src="js/go.js"></script>
+
+				<div class="p-4 w-full">
+					{% set cpt = 0 %}
+					{% for Tache in taches %}
+						{% set cpt = cpt + 1 %}
+
+					<input hidden id="idLettre{{ cpt }}" value="{{ Tache.letter }}" >
+					<input hidden id="idDuree{{ cpt }}" value="{{ Tache.duration }}" >
+					<input hidden id="idPreviousLetter{{ cpt }}" value="{{ Tache.previousLetter }}" >
+					<input hidden id="idPreviousLetter1{{ cpt }}" value="{{ Tache.previousLetter }}" >
+					<input hidden id="id{{ cpt }}" value="{{ Tache.id }}" >
+					<input hidden id="level{{ cpt }}" value="{{ Tache.level }}" >
+					<script id="code">
+						function init() {
+
+							let letter = [];
+							let duree = [];
+							let previousLetter = [];
+							let previousLetter1 = [];
+							let lien = [];
+							let idTab = [];
+							let levelTab = [];
+
+							for (let i = 1; i < 10000 ; i++) {
+								let inputLettre = document.getElementById('idLettre'+i);
+								let inputDuree = document.getElementById('idDuree'+i);
+								let inputPreviousLetter = document.getElementById('idPreviousLetter'+i);
+								let inputPreviousLetter1 = document.getElementById('idPreviousLetter1'+i);
+								let id = document.getElementById('id'+i);
+								let level = document.getElementById('level'+i);
+								if (inputLettre === null) {
+									break;
+								} else {
+									levelTab.push(level.value);
+									idTab.push(id.value);
+									letter.push(inputLettre.value);
+									duree.push(inputDuree.value);
+									previousLetter.push(inputPreviousLetter.value);
+									previousLetter1.push(inputPreviousLetter1.value);
+								}
+							}
+
+
+							let nbLevel = [];
+							let cpt1 = 0;
+							for(let i = 0; i<levelTab.length+1; i++){
+								if(levelTab[i] === '1'){
+									cpt1+=1;
+								}
+							}
+							nbLevel.push(cpt1);
+							let cpt2 = 0;
+							for(let i = 0; i<levelTab.length+1; i++){
+								if(levelTab[i] === '2'){
+									cpt2+=1;
+								}
+							}
+							nbLevel.push(cpt2);
+							let cpt3 = 0;
+							for(let i = 0; i<levelTab.length+1; i++){
+								if(levelTab[i] === '3'){
+									cpt3+=1;
+								}
+							}
+							nbLevel.push(cpt3);
+							let cpt4 = 0;
+							for(let i = 0; i<levelTab.length+1; i++){
+								if(levelTab[i] === '4'){
+									cpt4+=1;
+								}
+							}
+							nbLevel.push(cpt4);
+							let cpt5 = 0;
+							for(let i = 0; i<levelTab.length+1; i++){
+								if(levelTab[i] === '5'){
+									cpt5+=1;
+								}
+							}
+							nbLevel.push(cpt5);
+							let cpt6 = 0;
+							for(let i = 0; i<levelTab.length+1; i++){
+								if(levelTab[i] === '6'){
+									cpt6+=1;
+								}
+							}
+							nbLevel.push(cpt6);
+							let cpt7 = 0;
+							for(let i = 0; i<levelTab.length+1; i++){
+								if(levelTab[i] === '7'){
+									cpt7+=1;
+								}
+							}
+							nbLevel.push(cpt7);
+
+							for(let i = 0; i<nbLevel.length;i++){
+								if(nbLevel[i] === 0){
+									nbLevel.pop();
+								}
+							}
+							nbLevel.pop();
+
+
+							let minLevel = [];
+							let min1;
+							for(let i = 0; i<nbLevel[0];i++){
+								min1 = duree[0];
+								if(min1>duree[i]){
+									min1 = duree[i];
+								}
+							}
+							for(let i = 0; i<nbLevel[0];i++){
+								minLevel.push(min1)
+							}
+
+
+							let min2;
+							let nb = 1;
+							while(nb <= nbLevel[1]+1){
+								nb++;
+								min2 = 10000;
+								if(min2>duree[nb]){
+									min2 = duree[nb];
+								}
+
+							}
+							for(let i = 0; i<nbLevel[1];i++){
+								minLevel.push(min2)
+							}
+
+							/*let min3;
+							let nb1 = 1;
+							let nbbis1 = 1+nb;
+							while(nb1 <= nbLevel[2]+1){
+								nb1++;
+								min3 = 10000;
+								if(min3>duree[nbbis1]){
+									min3 = duree[nbbis1];
+								}
+							}
+							for(let i = 0; i<nbLevel[2];i++){
+								minLevel.push(min3)
+							}
+
+							let min4;
+							let nb2 = 1;
+							let nbbis2 = 1+nb1;
+							while(nb2 <= nbLevel[3]+1){
+								nb2++;
+								min4 = 10000;
+								if(min4>duree[nbbis2]){
+									min4 = duree[nbbis2];
+								}
+							}
+							for(let i = 0; i<nbLevel[3];i++){
+								minLevel.push(min4)
+							}*/
+
+							console.log(minLevel)
+
+
+
+
+
+
+
+							for(let i = 0; i<previousLetter1.length;i++){
+								let to = 0;
+								if(previousLetter1[i].length > 1){
+									let tobis = 0;
+									for(j = 0; j<3; j++){
+										if(previousLetter1[i].split(',')[tobis] !== null){
+											if(previousLetter1[i].split(',')[tobis] === 'A'){
+												to = 1;
+												tobis++;
+												var pre = {"from": idTab[i], "to" : to.toString()}
+											}else if(previousLetter1[i].split(',')[tobis] === 'B'){
+												to = 2;
+												tobis++;
+												var pre = {"from": idTab[i], "to" : to.toString()};
+											}else if(previousLetter1[i].split(',')[tobis] === 'C'){
+												to = 3;
+												tobis++;
+												var pre = {"from": idTab[i], "to" : to.toString()};
+											}else if(previousLetter1[i].split(',')[tobis] === 'D'){
+												to = 4;
+												tobis++;
+												var pre = {"from": idTab[i], "to" : to.toString()};
+											}else if(previousLetter1[i].split(',')[tobis] === 'E'){
+												to = 5;
+												tobis++;
+												var pre = {"from": idTab[i], "to" : to.toString()};
+											}else if(previousLetter1[i].split(',')[tobis] === 'F'){
+												to = 6;
+												tobis++;
+												var pre = {"from": idTab[i], "to" : to.toString()};
+											}else if(previousLetter1[i].split(',')[tobis] === 'G'){
+												to = 7;
+												tobis++;
+												var pre = {"from": idTab[i], "to" : to.toString()};
+											}else if(previousLetter1[i].split(',')[tobis] === 'H'){
+												to = 8;
+												tobis++;
+												var pre = {"from": idTab[i], "to" : to.toString()};
+											}else if(previousLetter1[i].split(',')[tobis] === 'I'){
+												to = 9;
+												tobis++;
+												var pre = {"from": idTab[i], "to" : to.toString()};
+											}else if(previousLetter1[i].split(',')[tobis] === 'J'){
+												to = 10;
+												tobis++;
+												var pre = {"from": idTab[i], "to" : to.toString()};
+											}else if(previousLetter1[i].split(',')[tobis] === 'K'){
+												to = 11;
+												tobis++;
+												var pre = {"from": idTab[i], "to" : to.toString()};
+											}else if(previousLetter1[i].split(',')[tobis] === 'L'){
+												to = 12;
+												tobis++;
+												var pre = {"from": idTab[i], "to" : to.toString()};
+											}else if(previousLetter1[i].split(',')[tobis] === 'M'){
+												to = 13;
+												tobis++;
+												var pre = {"from": idTab[i], "to" : to.toString()};
+											}else if(previousLetter1[i].split(',')[tobis] === 'N'){
+												to = 14;
+												tobis++;
+												var pre = {"from": idTab[i], "to" : to.toString()};
+											}else if(previousLetter1[i].split(',')[tobis] === 'O'){
+												to = 15;
+												tobis++;
+												var pre = {"from": idTab[i], "to" : to.toString()};
+											}else if(previousLetter1[i].split(',')[tobis] === 'P'){
+												to = 16;
+												tobis++;
+												var pre = {"from": idTab[i], "to" : to.toString()};
+											}else if(previousLetter1[i].split(',')[tobis] === 'Q'){
+												to = 17;
+												tobis++;
+												var pre = {"from": idTab[i], "to" : to.toString()};
+											}else if(previousLetter1[i].split(',')[tobis] === 'R'){
+												to = 18;
+												tobis++;
+												var pre = {"from": idTab[i], "to" : to.toString()};
+											}else if(previousLetter1[i].split(',')[tobis] === 'S'){
+												to = 19;
+												tobis++;
+												var pre = {"from": idTab[i], "to" : to.toString()};
+											}else if(previousLetter1[i].split(',')[tobis] === 'T'){
+												to = 20;
+												tobis++;
+												var pre = {"from": idTab[i], "to" : to.toString()};
+											}else if(previousLetter1[i].split(',')[tobis] === 'U'){
+												to = 21;
+												tobis++;
+												var pre = {"from": idTab[i], "to" : to.toString()};
+											}else if(previousLetter1[i].split(',')[tobis] === 'V'){
+												to = 22;
+												tobis++;
+												var pre = {"from": idTab[i], "to" : to.toString()};
+											}else if(previousLetter1[i].split(',')[tobis] === 'W'){
+												to = 23;
+												tobis++;
+												var pre = {"from": idTab[i], "to" : to.toString()};
+											}else if(previousLetter1[i].split(',')[tobis] === 'X'){
+												to = 24;
+												tobis++;
+												var pre = {"from": idTab[i], "to" : to.toString()};
+											}else if(previousLetter1[i].split(',')[tobis] === 'Y'){
+												to = 25;
+												tobis++;
+												var pre = {"from": idTab[i], "to" : to.toString()};
+											}else if(previousLetter1[i].split(',')[tobis] === 'Z'){
+												to = 26;
+												tobis++;
+												var pre = {"from": idTab[i], "to" : to.toString()};
+											}
+											lien.push(pre)
+										}else{
+											break;
+										}
+									}
+								}else{
+									if(previousLetter1[i] === 'A'){
+										to = 1;
+										var pre = {"from": idTab[i], "to" : to.toString()}
+									}else if(previousLetter1[i] === 'B'){
+										to = 2;
+										var pre = {"from": idTab[i], "to" : to.toString()};
+									}else if(previousLetter1[i] === 'C'){
+										to = 3;
+										var pre = {"from": idTab[i], "to" : to.toString()};
+									}else if(previousLetter1[i] === 'D'){
+										to = 4;
+										var pre = {"from": idTab[i], "to" : to.toString()};
+									}else if(previousLetter1[i] === 'E'){
+										to = 5;
+										var pre = {"from": idTab[i], "to" : to.toString()};
+									}else if(previousLetter1[i] === 'F'){
+										to = 6;
+										var pre = {"from": idTab[i], "to" : to.toString()};
+									}else if(previousLetter1[i] === 'G'){
+										to = 7;
+										var pre = {"from": idTab[i], "to" : to.toString()};
+									}else if(previousLetter1[i] === 'H'){
+										to = 8;
+										var pre = {"from": idTab[i], "to" : to.toString()};
+									}else if(previousLetter1[i] === 'I'){
+										to = 9;
+										var pre = {"from": idTab[i], "to" : to.toString()};
+									}else if(previousLetter1[i] === 'J'){
+										to = 10;
+										var pre = {"from": idTab[i], "to" : to.toString()};
+									}else if(previousLetter1[i] === 'K'){
+										to = 11;
+										var pre = {"from": idTab[i], "to" : to.toString()};
+									}else if(previousLetter1[i] === 'L'){
+										to = 12;
+										var pre = {"from": idTab[i], "to" : to.toString()};
+									}else if(previousLetter1[i] === 'M'){
+										to = 13;
+										var pre = {"from": idTab[i], "to" : to.toString()};
+									}else if(previousLetter1[i] === 'N'){
+										to = 14;
+										var pre = {"from": idTab[i], "to" : to.toString()};
+									}else if(previousLetter1[i] === 'O'){
+										to = 15;
+										var pre = {"from": idTab[i], "to" : to.toString()};
+									}else if(previousLetter1[i] === 'P'){
+										to = 16;
+										var pre = {"from": idTab[i], "to" : to.toString()};
+									}else if(previousLetter1[i] === 'Q'){
+										to = 17;
+										var pre = {"from": idTab[i], "to" : to.toString()};
+									}else if(previousLetter1[i] === 'R'){
+										to = 18;
+										var pre = {"from": idTab[i], "to" : to.toString()};
+									}else if(previousLetter1[i] === 'S'){
+										to = 19;
+										var pre = {"from": idTab[i], "to" : to.toString()};
+									}else if(previousLetter1[i] === 'T'){
+										to = 20;
+										var pre = {"from": idTab[i], "to" : to.toString()};
+									}else if(previousLetter1[i] === 'U'){
+										to = 21;
+										var pre = {"from": idTab[i], "to" : to.toString()};
+									}else if(previousLetter1[i] === 'V'){
+										to = 22;
+										var pre = {"from": idTab[i], "to" : to.toString()};
+									}else if(previousLetter1[i] === 'W'){
+										to = 23;
+										var pre = {"from": idTab[i], "to" : to.toString()};
+									}else if(previousLetter1[i] === 'X'){
+										to = 24;
+										var pre = {"from": idTab[i], "to" : to.toString()};
+									}else if(previousLetter1[i] === 'Y'){
+										to = 25;
+										var pre = {"from": idTab[i], "to" : to.toString()};
+									}else if(previousLetter1[i] === 'Z'){
+										to = 26;
+										var pre = {"from": idTab[i], "to" : to.toString()};
+									}
+									lien.push(pre)
+								}
+							}
+
+
+							let tab = []
+							var cpt = 0
+							for(let i = 0; i<letter.length;i++){
+								cpt++
+								var arr = {"key": cpt, "text" : letter[i], "length" : duree[i], "earlyStart" : minLevel[i], "lateFinish" : 0, "critical" : true };
+								tab.push(arr);
+							}
+							tab.push({ key: letter.length+1, text: "Fin", length: 0, earlyStart: 19.51, lateFinish: 19.51, critical: true })
+
+
+							// Since 2.2 you can also author concise templates with method chaining instead of GraphObject.make
+							// For details, see https://gojs.net/latest/intro/buildingObjects.html
+							const $ = go.GraphObject.make;  // for more concise visual tree definitions
+
+							// colors used, named for easier identification
+							var blue = "#596CFF";
+							var pink = "#6f42c1";
+							var pinkfill = "#cb0baa";
+							var bluefill = "#63B3ED";
+
+							myDiagram =
+									$(go.Diagram, "myDiagramDiv",
+											{
+												initialAutoScale: go.Diagram.Uniform,
+												layout: $(go.LayeredDigraphLayout)
+											});
+
+							// The node template shows the activity name in the middle as well as
+							// various statistics about the activity, all surrounded by a border.
+							// The border's color is determined by the node data's ".critical" property.
+							// Some information is not available as properties on the node data,
+							// but must be computed -- we use converter functions for that.
+							myDiagram.nodeTemplate =
+									$(go.Node, "Auto",
+											$(go.Shape, "Rectangle",  // the border
+													{ fill: "white", strokeWidth: 2 },
+													new go.Binding("fill", "critical", b => b ? pinkfill : bluefill),
+													new go.Binding("stroke", "critical", b => b ? pink : blue)),
+											$(go.Panel, "Table",
+													{ padding: 0.5 },
+													$(go.RowColumnDefinition, { column: 1, separatorStroke: "black" }),
+													$(go.RowColumnDefinition, { column: 2, separatorStroke: "black" }),
+													$(go.RowColumnDefinition, { row: 1, separatorStroke: "black", background: "white", coversSeparators: true }),
+													$(go.RowColumnDefinition, { row: 2, separatorStroke: "black" }),
+													$(go.TextBlock, // earlyStart
+															new go.Binding("text", "earlyStart"),
+															{ row: 0, column: 0, margin: 5, textAlign: "center" }),
+													$(go.TextBlock,
+															new go.Binding("text", "length"),
+															{ row: 0, column: 1, margin: 5, textAlign: "center" }),
+													$(go.TextBlock,  // earlyFinish
+															new go.Binding("text", "",
+																	d => (d.earlyStart + d.length).toFixed(2)),
+															{ row: 0, column: 2, margin: 5, textAlign: "center" }),
+
+													$(go.TextBlock,
+															new go.Binding("text", "text"),
+															{
+																row: 1, column: 0, columnSpan: 3, margin: 5,
+																textAlign: "center", font: "bold 14px sans-serif"
+															}),
+
+													$(go.TextBlock,  // lateStart
+															new go.Binding("text", "",
+																	d => (d.lateFinish - d.length).toFixed(2)),
+															{ row: 2, column: 0, margin: 5, textAlign: "center" }),
+													$(go.TextBlock,  // slack
+															new go.Binding("text", "",
+																	d => (d.lateFinish - (d.earlyStart + d.length)).toFixed(2)),
+															{ row: 2, column: 1, margin: 5, textAlign: "center" }),
+													$(go.TextBlock, // lateFinish
+															new go.Binding("text", "lateFinish"),
+															{ row: 2, column: 2, margin: 5, textAlign: "center" })
+											)  // end Table Panel
+									);  // end Node
+
+							// The link data object does not have direct access to both nodes
+							// (although it does have references to their keys: .from and .to).
+							// This conversion function gets the GraphObject that was data-bound as the second argument.
+							// From that we can get the containing Link, and then the Link.fromNode or .toNode,
+							// and then its node data, which has the ".critical" property we need.
+							//
+							// But note that if we were to dynamically change the ".critical" property on a node data,
+							// calling myDiagram.model.updateTargetBindings(nodedata) would only update the color
+							// of the nodes.  It would be insufficient to change the appearance of any Links.
+							function linkColorConverter(linkdata, elt) {
+								var link = elt.part;
+								if (!link) return blue;
+								var f = link.fromNode;
+								if (!f || !f.data || !f.data.critical) return blue;
+								var t = link.toNode;
+								if (!t || !t.data || !t.data.critical) return blue;
+								return pink;  // when both Link.fromNode.data.critical and Link.toNode.data.critical
+							}
+
+							// The color of a link (including its arrowhead) is red only when both
+							// connected nodes have data that is ".critical"; otherwise it is blue.
+							// This is computed by the binding converter function.
+							myDiagram.linkTemplate =
+									$(go.Link,
+											{ toShortLength: 6, toEndSegmentLength: 20 },
+											$(go.Shape,
+													{ strokeWidth: 4 },
+													new go.Binding("stroke", "", linkColorConverter)),
+											$(go.Shape,  // arrowhead
+													{ toArrow: "Triangle", stroke: null, scale: 1.5 },
+													new go.Binding("fill", "", linkColorConverter))
+									);
+
+							// here's the data defining the graph
+
+
+							var nodeDataArray = [
+								{ key: 1, text: "Start", length: 0, earlyStart: 0, lateFinish: 0, critical: true },
+								{ key: 2, text: "a", length: 4, earlyStart: 0, lateFinish: 4, critical: true },
+								{ key: 3, text: "b", length: 5.33, earlyStart: 0, lateFinish: 9.17, critical: false },
+								{ key: 4, text: "c", length: 5.17, earlyStart: 4, lateFinish: 9.17, critical: true },
+								{ key: 5, text: "d", length: 6.33, earlyStart: 4, lateFinish: 15.01, critical: false },
+								{ key: 6, text: "e", length: 5.17, earlyStart: 9.17, lateFinish: 14.34, critical: true },
+								{ key: 7, text: "f", length: 4.5, earlyStart: 10.33, lateFinish: 19.51, critical: false },
+								{ key: 8, text: "g", length: 5.17, earlyStart: 14.34, lateFinish: 19.51, critical: true },
+								{ key: 9, text: "Finish", length: 0, earlyStart: 19.51, lateFinish: 19.51, critical: true }
+							];
+							var linkDataArray = [
+								{ from: 1, to: 2 },
+								{ from: 1, to: 3 },
+								{ from: 2, to: 4 },
+								{ from: 2, to: 5 },
+								{ from: 3, to: 6 },
+								{ from: 4, to: 6 },
+								{ from: 5, to: 7 },
+								{ from: 6, to: 8 },
+								{ from: 7, to: 9 },
+								{ from: 8, to: 9 }
+							];
+							myDiagram.model = new go.GraphLinksModel(tab, lien);
+
+							// create an unbound Part that acts as a "legend" for the diagram
+							myDiagram.add(
+									$(go.Node, "Auto",
+											$(go.Shape, "Rectangle",  // the border
+													{ fill: bluefill }),
+											$(go.Panel, "Table",
+													$(go.RowColumnDefinition, { column: 1, separatorStroke: "black" }),
+													$(go.RowColumnDefinition, { column: 2, separatorStroke: "black" }),
+													$(go.RowColumnDefinition, { row: 1, separatorStroke: "black", background: bluefill, coversSeparators: true }),
+													$(go.RowColumnDefinition, { row: 2, separatorStroke: "black" }),
+													$(go.TextBlock, "Early Start",
+															{ row: 0, column: 0, margin: 5, textAlign: "center" }),
+													$(go.TextBlock, "Durée",
+															{ row: 0, column: 1, margin: 5, textAlign: "center" }),
+													$(go.TextBlock, "Early Finish",
+															{ row: 0, column: 2, margin: 5, textAlign: "center" }),
+
+													$(go.TextBlock, "Conception Plan Dev",
+															{
+																row: 1, column: 0, columnSpan: 3, margin: 5,
+																textAlign: "center", font: "bold 14px sans-serif"
+															}),
+
+													$(go.TextBlock, "Late Start",
+															{ row: 2, column: 0, margin: 5, textAlign: "center" }),
+													$(go.TextBlock, "Slack",
+															{ row: 2, column: 1, margin: 5, textAlign: "center" }),
+													$(go.TextBlock, "Late Finish",
+															{ row: 2, column: 2, margin: 5, textAlign: "center" })
+											)  // end Table Panel
+									));
+						}
+						window.addEventListener('DOMContentLoaded', init);
+					</script>
+					{% endfor %}
+
+					<div id="sample">
+						<div id="myDiagramDiv" style="border: solid 1px black; width:100%; height:400px">
+
+
+						</div>
+					</div>
+				</div>
+				<!-- * * * * * * * * * * * * * -->
+				<!--  End of GoJS sample code  -->
+				<p class="text-xs font-weight-bold mb-0"></p>
+			</div>
+			<!--  This script is part of the gojs.net website, and is not needed to run the sample -->
+
+
+
+		</div>
+	</main>{% endblock %}

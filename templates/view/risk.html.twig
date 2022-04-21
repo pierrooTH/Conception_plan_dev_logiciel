@@ -1,0 +1,175 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Risques
+{% endblock %}
+
+{% block activerisk %}
+    class="nav-link active"
+{% endblock %}
+
+{% block container %}
+
+    <main
+            class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg ">
+    <!-- Navbar -->
+    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" navbar-scroll="true">
+        <div class="container-fluid py-1 px-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+                    <li class="breadcrumb-item text-sm">
+                        <a class="opacity-5 text-dark" href="/">Dashboard</a>
+                    </li>
+                    <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Gestion des risques</li>
+                </ol>
+                <h6 class="font-weight-bolder mb-0">Gestion des risques</h6>
+            </nav>
+            <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+                <div class="ms-md-auto pe-md-3 d-flex align-items-center"></div>
+                <ul class="navbar-nav  justify-content-end">
+                    <li class="nav-item d-flex align-items-center">
+                        <a href="/" class="nav-link text-body font-weight-bold px-0">
+                            <i class="fas fa-power-off me-sm-1"></i>
+                            <span class="d-sm-inline d-none">Déconnexion</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid py-4">
+        <div class="row">
+            <div class="col-6">
+                <div class="card mb-4">
+                    <div class="card-header pb-0">
+                        <h6>Tableau des risques</h6>
+                    </div>
+                    <div class="card-body px-0 pt-0 pb-2">
+                        <div class="table-responsive p-0">
+                            <table class="table align-items-center mb-0">
+                                <thead>
+                                <tr>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Type de risque</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nom du risque</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Probabilité</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Sévérité</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Coût de la réduction du risque</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Propriétaire du risque</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Moyens de détection du risque</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Mesures de correction du risque</th>
+                                    <th class="text-secondary opacity-7"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for risk in risks %}
+                                <tr>
+                                    <td>
+                                        <div class="d-flex px-2 py-1">
+                                            <div class="d-flex flex-column justify-content-center">
+                                                <h6 class="mb-0 text-sm">{{ risk.typeOfRisk }}</h6>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">{{ risk.risk }}</p>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">{{ risk.probability }} %</p>
+                                    </td>
+                                    <td class="align-middle text-center text-sm">
+													<span class="badge badge-sm bg-gradient-success">{{ risk.severity }}
+														jours</span>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <span class="text-secondary text-xs font-weight-bold">{{risk.costRiskReduction}}</span>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <span class="text-secondary text-xs font-weight-bold">{{ risk.owner }}</span>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <span class="text-secondary text-xs font-weight-bold">{{ risk.meansDetection }}</span>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <span class="text-secondary text-xs font-weight-bold">{{ risk.correctiveMeasures }}</span>
+                                    </td>
+
+                                    <td class="align-middle">
+                                        <form method="post" action="{{ path('risk_delete', {'id': risk.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce risque ?');">
+                                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ risk.id) }}">
+                                            <button class="text-secondary font-weight-bold text-xs">Supprimer</button>
+                                        </form>
+                                    </td>
+
+                                </tr>
+                                </tbody>
+                                {% endfor %}
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-6">
+                <div class="card z-index-0">
+                    <div class="card-body">
+                        {{ form_start(formRisk) }}
+                        <div class="row mb-4">
+                            <div class="col-6 mb-4">
+                                {{ form_label(formRisk.typeOfRisk, 'Type de risque') }}
+                                {{ form_widget(formRisk.typeOfRisk, { 'value': '' }) }}
+                            </div>
+                            <div class="col-6 mb-4">
+                                {{ form_label(formRisk.risk, 'Nom du risque') }}
+                                {{ form_widget(formRisk.risk, { 'value': '' }) }}
+                            </div>
+                            <div class="col-6">
+                                {{ form_label(formRisk.probability, 'Probabilité') }}
+                                {{ form_widget(formRisk.probability, { 'value': '' }) }}
+                            </div>
+                            <div class="col-6">
+                                {{ form_label(formRisk.severity, 'Sévérité') }}
+                                {{ form_widget(formRisk.severity, { 'value': '' }) }}
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-6 mb-4">
+                                {{ form_label(formRisk.costRiskReduction, 'Coût') }}
+                                {{ form_widget(formRisk.costRiskReduction, { 'value': '' }) }}
+                            </div>
+                            <div class="col-6 mb-4">
+                                {{ form_label(formRisk.owner, 'Propriétaire') }}
+                                {{ form_widget(formRisk.owner, { 'value': '' }) }}
+                            </div>
+                            <div class="col-6">
+                                {{ form_label(formRisk.meansDetection, 'Moyens de détection') }}
+                                {{ form_widget(formRisk.meansDetection, { 'value': '' }) }}
+                            </div>
+                            <div class="col-6">
+                                {{ form_label(formRisk.correctiveMeasures, 'Mesures de corrections') }}
+                                {{ form_widget(formRisk.correctiveMeasures, { 'value': '' }) }}
+                            </div>
+                        </div>
+
+                        <div class="text-center">
+                            {{ form_widget(formRisk.submit, { 'label': 'Envoyer' } )}}
+                        </div>
+                        <div class='row'>
+                            <div class='col-12'>
+                                {% if repvisu == '' %}
+
+                                {% elseif repvisu == 'Envoyé'%}
+                                    <p class='col-12 badge badge-sm bg-gradient-success'>{{ repvisu }}</p>
+                                {% else %}
+                                    <p class='col-12 badge badge-sm bg-gradient-danger'>{{ repvisu }}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {{ form_end(formRisk) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </main>
+
+{% endblock %}

@@ -1,0 +1,235 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Anomalies
+{% endblock %}
+
+{% block activeanomaly %}
+    class="nav-link active"
+{% endblock %}
+
+{% block container %}
+
+    <main
+            class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg ">
+        <!-- Navbar -->
+        <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" navbar-scroll="true">
+            <div class="container-fluid py-1 px-3">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+                        <li class="breadcrumb-item text-sm">
+                            <a class="opacity-5 text-dark" href="/">Dashboard</a>
+                        </li>
+                        <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Gestion des anomalies</li>
+                    </ol>
+                    <h6 class="font-weight-bolder mb-0">Gestion des anomalies</h6>
+                </nav>
+                <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+                    <div class="ms-md-auto pe-md-3 d-flex align-items-center"></div>
+                    <ul class="navbar-nav  justify-content-end">
+                        <li class="nav-item d-flex align-items-center">
+                            <a href="/" class="nav-link text-body font-weight-bold px-0">
+                                <i class="fas fa-power-off me-sm-1"></i>
+                                <span class="d-sm-inline d-none">Déconnexion</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container-fluid py-4">
+            <div class="row">
+                <div class="col-6">
+                    <div class="card mb-4">
+                        <div class="card-header pb-0">
+                            <h6>Tableau des anomalies</h6>
+                        </div>
+                        <div class="card-body px-0 pt-0 pb-2">
+                            <div class="table-responsive p-0">
+                                <table class="table align-items-center mb-0">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Emplacement de la page</th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">État</th>
+                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date</th>
+                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Auteur</th>
+                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Scénario</th>
+                                        <th class="text-secondary opacity-7"></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for ano in anomalies %}
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex px-2 py-1">
+                                                <div class="d-flex flex-column justify-content-center">
+                                                    <h6 class="mb-0 text-sm">{{ ano.webPageLocation }}</h6>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <p class="text-xs font-weight-bold mb-0">{{ ano.state }}</p>
+                                        </td>
+                                        <td class="align-middle text-center text-sm">
+													<span class="badge badge-sm bg-gradient-success">{{ ano.date|date("d/m/Y") }}</span>
+                                        </td>
+                                        <td class="align-middle text-center">
+                                            <span class="text-secondary text-xs font-weight-bold">{{ano.author}}</span>
+                                        </td>
+                                        <td class="align-middle text-center">
+                                            <span class="text-secondary text-xs font-weight-bold">{{ ano.scenario }}</span>
+                                        </td>
+
+                                        <td class="align-middle">
+                                            <form method="post" action="{{ path('anomaly_delete', {'id': ano.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette anomalie ?');">
+                                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ ano.id) }}">
+                                                <button class="text-secondary font-weight-bold text-xs">Supprimer</button>
+                                            </form>
+                                        </td>
+
+                                    </tr>
+                                    </tbody>
+                                    {% endfor %}
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-6">
+                    <div class="card z-index-0">
+                        <div class="card-body">
+                            {{ form_start(formAnomaly) }}
+                            <div class="row mb-4">
+                                <div class="col-6 mb-4">
+                                    {{ form_label(formAnomaly.webPageLocation, 'Emplacement de la page') }}
+                                    {{ form_widget(formAnomaly.webPageLocation, { 'value': '' }) }}
+                                </div>
+                                <div class="col-6">
+                                    {{ form_label(formAnomaly.state, 'État de l\'anomalie') }}
+                                    {{ form_widget(formAnomaly.state, { 'value': '' }) }}
+                                </div>
+                                <div class="col-6">
+                                    {{ form_label(formAnomaly.date, 'Date de l\'anomalie') }}
+                                    {{ form_widget(formAnomaly.date, { 'value': '' }) }}
+                                </div>
+                                <div class="col-6">
+                                    {{ form_label(formAnomaly.author, 'Auteur') }}
+                                    {{ form_widget(formAnomaly.author, { 'value': '' }) }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    {{ form_label(formAnomaly.scenario, 'Description de l\'anomalie rencontrée') }}
+                                    {{ form_widget(formAnomaly.scenario, { 'value': '' }) }}
+                                </div>
+                            </div>
+
+                            <div class="text-center">
+                                {{ form_widget(formAnomaly.submit, { 'label': 'Envoyer' } )}}
+                            </div>
+                            <div class='row'>
+                                <div class='col-12'>
+                                    {% if repvisu == '' %}
+
+                                    {% elseif repvisu == 'Envoyé'%}
+                                        <p class='col-12 badge badge-sm bg-gradient-success'>{{ repvisu }}</p>
+                                    {% else %}
+                                        <p class='col-12 badge badge-sm bg-gradient-danger'>{{ repvisu }}</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            {{ form_end(formAnomaly) }}
+                        </div>
+                    </div>
+                </div>
+                <canvas id="graph"></canvas>
+
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+                {% set cpt1 = 0 %}
+                {% set cpt2 = 0 %}
+                {% set cpt3 = 0 %}
+                {% set cpt4 = 0 %}
+                {% for anomaly in anomalies %}
+                    {% if (anomaly.state == "Ouvert")%}
+                    {% set cpt1 = cpt1 + 1 %}
+                    {% endif %}
+                    {% if (anomaly.state == "Corrigé")%}
+                        {% set cpt2 = cpt2 + 1 %}
+                    {% endif %}
+                    {% if (anomaly.state == "Non reproduit")%}
+                        {% set cpt3 = cpt3 + 1 %}
+                    {% endif %}
+                    {% if (anomaly.state == "Fermé")%}
+                        {% set cpt4 = cpt4 + 1 %}
+                    {% endif %}
+                {% endfor %}
+                    <input hidden id="stateAnomaly1" value="{{ cpt1 }}" >
+                    <input hidden id="stateAnomaly2" value="{{ cpt2 }}" >
+                    <input hidden id="stateAnomaly3" value="{{ cpt3 }}" >
+                    <input hidden id="stateAnomaly4" value="{{ cpt4 }}" >
+
+                <script>
+                    {% if(cpt1 != 0 or cpt2 != 0 or cpt3 != 0 or cpt4 != 0) %}
+                    const graph = document.getElementById("graph").getContext("2d");
+
+                    Chart.defaults.global.defaultFontSize = 18;
+
+                    let massPopChart = new Chart(graph, {
+                        type: "bar", // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+                        data: {
+                            labels: [
+                                "Ouvert",
+                                "Corrigé",
+                                "Non reproduit",
+                                "Fermé",
+                            ],
+                            datasets: [
+                                {
+                                    label: "Nombre des anomalies",
+                                    data: [document.getElementById('stateAnomaly1').value,document.getElementById('stateAnomaly2').value,document.getElementById('stateAnomaly3').value,document.getElementById('stateAnomaly4').value],
+                                    backgroundColor: [
+                                        "orange",
+                                        "green",
+                                        "red",
+                                        "blue",
+                                    ],
+                                    hoverBorderWidth: 3,
+                                },
+                            ],
+                        },
+                        options: {
+                            title: {
+                                display: true,
+                                text: "Gestion des anomalies",
+                                fontSize: 24,
+                            },
+                            legend: {
+                                display: true,
+                            },
+                            // start at 0
+                            scales: {
+                                yAxes: [
+                                    {
+                                        ticks: {
+                                            beginAtZero: true,
+                                        },
+                                    },
+                                ],
+                            },
+                            layout: {
+                                padding: {
+                                    left: 100,
+                                    right: 100,
+                                    top: 50,
+                                },
+                            },
+                        },
+                    });
+                    {% endif %}
+                </script>
+            </div>
+        </div>
+    </main>
+
+{% endblock %}
