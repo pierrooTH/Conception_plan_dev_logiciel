@@ -6,7 +6,7 @@ use App\Entity\Anomaly;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -52,10 +52,15 @@ class AnomalyController extends AbstractController
                     'class' => 'form-control'
                 ]
             ])
-            ->add('date', DateTimeType::class, [
+            ->add('date', DateType::class, [
+                'format' => 'dd/MM/yyyy', 
+                'html5' => FALSE,
+                'data' => new \DateTime(),
+                'view_timezone' => 'Europe/Paris',
+                'model_timezone' => 'Europe/Paris',
                 'attr' =>[
-                    'placeholder' => "Propriétaire du risque",
-                    'class' => 'form-control'
+                    'class' => 'form-control',
+        
                 ]
             ])
             ->add('author', TextType::class, [
@@ -134,10 +139,14 @@ class AnomalyController extends AbstractController
                     'class' => 'form-control'
                 ]
             ])
-            ->add('date', DateTimeType::class, [
+            ->add('date', DateType::class, [
+                'format' => 'dd/MM/yyyy', 
+                'html5' => FALSE,
+                'view_timezone' => 'Europe/Paris',
+                'model_timezone' => 'Europe/Paris',
                 'attr' =>[
-                    'placeholder' => "Propriétaire du risque",
-                    'class' => 'form-control'
+                    'class' => 'form-control',
+        
                 ]
             ])
             ->add('author', TextType::class, [
@@ -165,6 +174,7 @@ class AnomalyController extends AbstractController
                 $manager->persist($anomaly);
                 $manager->flush();
                 $repvisu =  "Envoyé";
+                return $this->redirectToRoute('anomaly');
 
             }else{
                 $repvisu = "Cette anomalie existe déjà ou les champs sont incorrect !";

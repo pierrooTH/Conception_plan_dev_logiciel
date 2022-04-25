@@ -7,25 +7,25 @@
             <div class="row mb-4">
                 <div class="col-6 mb-4">
                     {{ form_label(formAnomaly.webPageLocation, 'Emplacement de la page') }}
-                    {{ form_widget(formAnomaly.webPageLocation, { 'value': '' }) }}
+                    {{ form_widget(formAnomaly.webPageLocation) }}
                 </div>
                 <div class="col-6">
                     {{ form_label(formAnomaly.state, 'État de l\'anomalie') }}
-                    {{ form_widget(formAnomaly.state, { 'value': '' }) }}
+                    {{ form_widget(formAnomaly.state) }}
                 </div>
                 <div class="col-6">
                     {{ form_label(formAnomaly.date, 'Date de l\'anomalie') }}
-                    {{ form_widget(formAnomaly.date, { 'value': '' }) }}
+                    {{ form_widget(formAnomaly.date) }}
                 </div>
                 <div class="col-6">
                     {{ form_label(formAnomaly.author, 'Auteur') }}
-                    {{ form_widget(formAnomaly.author, { 'value': '' }) }}
+                    {{ form_widget(formAnomaly.author) }}
                 </div>
             </div>
             <div class="row">
                 <div class="col-12">
                     {{ form_label(formAnomaly.scenario, 'Description de l\'anomalie rencontrée') }}
-                    {{ form_widget(formAnomaly.scenario, { 'value': '' }) }}
+                    {{ form_widget(formAnomaly.scenario) }}
                 </div>
             </div>
 

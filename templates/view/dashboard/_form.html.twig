@@ -7,25 +7,25 @@
                 <div class="row mb-4">
                     <div class="col-6 mb-4">
                         {{ form_label(formTache.letter, 'Tâche') }}
-                        {{ form_widget(formTache.letter, { 'value': '' }) }}
+                        {{ form_widget(formTache.letter) }}
                     </div>
                     <div class="col-6">
                         {{ form_label(formTache.duration, 'Durée') }}
-                        {{ form_widget(formTache.duration, { 'value': '' }) }}
+                        {{ form_widget(formTache.duration) }}
                     </div>
                     <div class="col-6">
                         {{ form_label(formTache.level, 'Niveau') }}
-                        {{ form_widget(formTache.level, { 'value': '' }) }}
+                        {{ form_widget(formTache.level) }}
                     </div>
                     <div class="col-6">
                         {{ form_label(formTache.previousLetter, 'Tâche précédente') }}
-                        {{ form_widget(formTache.previousLetter, { 'value': '' }) }}
+                        {{ form_widget(formTache.previousLetter) }}
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-12">
                         {{ form_label(formTache.description, 'Description') }}
-                        {{ form_widget(formTache.description, { 'value': '' }) }}
+                        {{ form_widget(formTache.description) }}
                     </div>
                 </div>
 

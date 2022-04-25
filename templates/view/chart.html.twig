@@ -200,10 +200,11 @@
 								minLevel.push(min4)
 							}*/
 
-							console.log(minLevel)
+							
 
 
-
+							let earlyStart1 = [2,2,7,7,9];
+							let lateFinish1 = [3,3,9,9,11];
 
 
 
@@ -413,10 +414,10 @@
 							var cpt = 0
 							for(let i = 0; i<letter.length;i++){
 								cpt++
-								var arr = {"key": cpt, "text" : letter[i], "length" : duree[i], "earlyStart" : minLevel[i], "lateFinish" : 0, "critical" : true };
+								var arr = {"key": cpt, "text" : letter[i], "length" : duree[i], "earlyStart" : earlyStart1[i], "lateFinish" : lateFinish1[i], "critical" : true };
 								tab.push(arr);
 							}
-							tab.push({ key: letter.length+1, text: "Fin", length: 0, earlyStart: 19.51, lateFinish: 19.51, critical: true })
+							tab.push({ key: letter.length+1, text: "Fin", length: 0, earlyStart: 9, lateFinish: 11, critical: true })
 
 
 							// Since 2.2 you can also author concise templates with method chaining instead of GraphObject.make
@@ -458,11 +459,8 @@
 															{ row: 0, column: 0, margin: 5, textAlign: "center" }),
 													$(go.TextBlock,
 															new go.Binding("text", "length"),
-															{ row: 0, column: 1, margin: 5, textAlign: "center" }),
-													$(go.TextBlock,  // earlyFinish
-															new go.Binding("text", "",
-																	d => (d.earlyStart + d.length).toFixed(2)),
 															{ row: 0, column: 2, margin: 5, textAlign: "center" }),
+													
 
 													$(go.TextBlock,
 															new go.Binding("text", "text"),
@@ -475,10 +473,6 @@
 															new go.Binding("text", "",
 																	d => (d.lateFinish - d.length).toFixed(2)),
 															{ row: 2, column: 0, margin: 5, textAlign: "center" }),
-													$(go.TextBlock,  // slack
-															new go.Binding("text", "",
-																	d => (d.lateFinish - (d.earlyStart + d.length)).toFixed(2)),
-															{ row: 2, column: 1, margin: 5, textAlign: "center" }),
 													$(go.TextBlock, // lateFinish
 															new go.Binding("text", "lateFinish"),
 															{ row: 2, column: 2, margin: 5, textAlign: "center" })
@@ -534,24 +528,18 @@
 													$(go.RowColumnDefinition, { column: 2, separatorStroke: "black" }),
 													$(go.RowColumnDefinition, { row: 1, separatorStroke: "black", background: bluefill, coversSeparators: true }),
 													$(go.RowColumnDefinition, { row: 2, separatorStroke: "black" }),
-													$(go.TextBlock, "Early Start",
+													$(go.TextBlock, "Début au plus tôt",
 															{ row: 0, column: 0, margin: 5, textAlign: "center" }),
 													$(go.TextBlock, "Durée",
-															{ row: 0, column: 1, margin: 5, textAlign: "center" }),
-													$(go.TextBlock, "Early Finish",
 															{ row: 0, column: 2, margin: 5, textAlign: "center" }),
-
 													$(go.TextBlock, "Conception Plan Dev",
 															{
 																row: 1, column: 0, columnSpan: 3, margin: 5,
 																textAlign: "center", font: "bold 14px sans-serif"
 															}),
-
-													$(go.TextBlock, "Late Start",
+													$(go.TextBlock, "Fin au plus tôt",
 															{ row: 2, column: 0, margin: 5, textAlign: "center" }),
-													$(go.TextBlock, "Slack",
-															{ row: 2, column: 1, margin: 5, textAlign: "center" }),
-													$(go.TextBlock, "Late Finish",
+													$(go.TextBlock, "Fin au plus tard",
 															{ row: 2, column: 2, margin: 5, textAlign: "center" })
 											)  // end Table Panel
 									));
